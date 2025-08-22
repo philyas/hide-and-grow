@@ -160,12 +160,161 @@
     @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 980px) { .grid { grid-template-columns: repeat(3, 1fr); } }
 
-    .card { position: relative; overflow: clip; border-radius: var(--radius-lg); background: var(--brand-white); border: 1px solid var(--brand-gray-200); box-shadow: var(--shadow-soft); }
-    .card .media { aspect-ratio: 4 / 3; background: linear-gradient(135deg, #eaf6ef, #f7fbf9); display: grid; place-items: center; color: var(--brand-gray-500); font-weight: 700; letter-spacing: 0.5px; }
-    .card .body { padding: 16px; display: grid; gap: 8px; }
-    .badge { font-size: 11px; padding: 4px 8px; border-radius: var(--radius-full); background: var(--brand-gray-100); color: var(--brand-gray-700); display: inline-block; }
-    .card h3 { margin: 0; font-size: 18px; }
-    .card .meta { color: var(--brand-gray-700); font-size: 14px; }
+    .card { 
+      position: relative; 
+      overflow: clip; 
+      border-radius: var(--radius-lg); 
+      background: var(--brand-white); 
+      border: 1px solid var(--brand-gray-200); 
+      box-shadow: var(--shadow-soft); 
+      transition: all var(--anim-med);
+      cursor: pointer;
+    }
+    
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--brand-green-300);
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, 
+        rgba(34, 197, 94, 0.8) 0%, 
+        rgba(16, 185, 129, 0.8) 25%, 
+        rgba(6, 182, 212, 0.8) 50%, 
+        rgba(16, 185, 129, 0.8) 75%, 
+        rgba(34, 197, 94, 0.8) 100%);
+      opacity: 0;
+      transition: opacity var(--anim-med);
+      background-size: 200% 100%;
+      animation: shimmer 4s ease-in-out infinite;
+    }
+    
+    .card:hover::before {
+      opacity: 1;
+      animation-play-state: paused;
+    }
+    
+    @keyframes shimmer {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    .card .media { 
+      aspect-ratio: 4 / 3; 
+      background: linear-gradient(135deg, #eaf6ef, #f7fbf9); 
+      display: grid; 
+      place-items: center; 
+      color: var(--brand-gray-500); 
+      font-weight: 700; 
+      letter-spacing: 0.5px; 
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .product-image-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: 
+        radial-gradient(ellipse 200px 150px at 30% 20%, rgba(34, 197, 94, 0.06) 0%, rgba(16, 185, 129, 0.04) 40%, transparent 70%),
+        radial-gradient(ellipse 150px 200px at 70% 80%, rgba(16, 185, 129, 0.05) 0%, rgba(6, 182, 212, 0.03) 50%, transparent 80%),
+        linear-gradient(135deg, 
+          rgba(34, 197, 94, 0.04) 0%, 
+          rgba(16, 185, 129, 0.05) 25%, 
+          rgba(6, 182, 212, 0.03) 50%, 
+          rgba(16, 185, 129, 0.04) 75%, 
+          rgba(34, 197, 94, 0.03) 100%);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      transition: all var(--anim-med);
+      overflow: hidden;
+    }
+    
+    .product-image-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(ellipse 300px 200px at 50% 30%, rgba(34, 197, 94, 0.08) 0%, rgba(16, 185, 129, 0.06) 30%, rgba(6, 182, 212, 0.04) 60%, transparent 100%),
+        radial-gradient(ellipse 200px 300px at 70% 70%, rgba(16, 185, 129, 0.05) 0%, rgba(6, 182, 212, 0.03) 40%, transparent 80%);
+      opacity: 0;
+      transition: opacity var(--anim-med);
+      transform: scale(1.05);
+    }
+    
+    .card:hover .product-image-container::before {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    .product-image-container img {
+      max-width: 80%;
+      max-height: 80%;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 24px rgba(37, 153, 99, 0.15));
+      transition: all var(--anim-med);
+      z-index: 2;
+      position: relative;
+    }
+    
+    .card:hover .product-image-container img {
+      transform: scale(1.05);
+      filter: drop-shadow(0 12px 32px rgba(37, 153, 99, 0.25));
+    }
+    
+    .card .body { 
+      padding: 20px; 
+      display: grid; 
+      gap: 12px; 
+      background: linear-gradient(180deg, 
+        rgba(255, 255, 255, 0.9) 0%, 
+        rgba(249, 251, 250, 0.95) 100%);
+    }
+    
+    .badge { 
+      font-size: 11px; 
+      padding: 6px 12px; 
+      border-radius: var(--radius-full); 
+      background: linear-gradient(135deg, var(--brand-green-100), var(--brand-green-200)); 
+      color: var(--brand-green-700); 
+      display: inline-block; 
+      font-weight: 600;
+      border: 1px solid var(--brand-green-300);
+      box-shadow: 0 2px 8px rgba(37, 153, 99, 0.1);
+      transition: all var(--anim-fast);
+    }
+    
+    .card:hover .badge {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(37, 153, 99, 0.15);
+    }
+    
+    .card h3 { 
+      margin: 0; 
+      font-size: 18px; 
+      font-weight: 700;
+      color: var(--brand-dark);
+      line-height: 1.3;
+    }
+    
+    .card .meta { 
+      color: var(--brand-gray-700); 
+      font-size: 14px; 
+      line-height: 1.5;
+      margin: 0;
+    }
 
     .hover-info { position: absolute; inset: 0; display: grid; place-items: end; background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,0.55) 100%); color: var(--brand-white); opacity: 0; transition: opacity var(--anim-med); padding: 16px; }
     .card:hover .hover-info { opacity: 1; }
@@ -690,11 +839,53 @@
 
     /* Green variants */
     .green-card {
-      background: linear-gradient(180deg, color-mix(in srgb, var(--brand-green-600) 14%, var(--brand-white)), var(--brand-white));
-      border: 1px solid color-mix(in srgb, var(--brand-green-600) 30%, var(--brand-gray-200));
-      box-shadow: 0 20px 50px rgba(37,153,99,0.15);
+      background: 
+        radial-gradient(ellipse 400px 300px at 10% 0%, rgba(34, 197, 94, 0.06) 0%, rgba(16, 185, 129, 0.04) 30%, rgba(6, 182, 212, 0.02) 60%, transparent 100%),
+        radial-gradient(ellipse 300px 400px at 90% 100%, rgba(16, 185, 129, 0.04) 0%, rgba(6, 182, 212, 0.03) 40%, transparent 70%),
+        linear-gradient(180deg, 
+          rgba(34, 197, 94, 0.03) 0%, 
+          rgba(16, 185, 129, 0.02) 25%, 
+          rgba(6, 182, 212, 0.01) 50%, 
+          rgba(255, 255, 255, 1) 100%);
+      border: 1px solid rgba(34, 197, 94, 0.15);
+      box-shadow: 0 20px 50px rgba(34, 197, 94, 0.08);
+      position: relative;
+      overflow: hidden;
     }
-    .green-card .badge { background: color-mix(in srgb, var(--brand-green-600) 16%, var(--brand-white)); color: var(--brand-green-700); }
+    
+    .green-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 120px;
+      height: 120px;
+      background: 
+        radial-gradient(circle, rgba(34, 197, 94, 0.08) 0%, rgba(16, 185, 129, 0.05) 40%, rgba(6, 182, 212, 0.02) 70%, transparent 100%);
+      border-radius: 50%;
+      transform: translate(40px, -40px);
+      pointer-events: none;
+      filter: blur(1px);
+    }
+    
+    .green-card .badge { 
+      background: linear-gradient(135deg, var(--brand-green-600), var(--brand-green-500)); 
+      color: var(--brand-white); 
+      border-color: var(--brand-green-600);
+      box-shadow: 0 4px 12px rgba(37, 153, 99, 0.3);
+    }
+    
+    .green-card .product-image-container {
+      background: 
+        radial-gradient(ellipse 250px 180px at 25% 25%, rgba(34, 197, 94, 0.08) 0%, rgba(16, 185, 129, 0.06) 35%, rgba(6, 182, 212, 0.04) 65%, transparent 90%),
+        radial-gradient(ellipse 180px 250px at 75% 75%, rgba(16, 185, 129, 0.05) 0%, rgba(6, 182, 212, 0.03) 45%, transparent 75%),
+        linear-gradient(135deg, 
+          rgba(34, 197, 94, 0.06) 0%, 
+          rgba(16, 185, 129, 0.07) 25%, 
+          rgba(6, 182, 212, 0.05) 50%, 
+          rgba(16, 185, 129, 0.04) 75%, 
+          rgba(34, 197, 94, 0.03) 100%);
+    }
 
     .green-surface {
       background: radial-gradient(1000px 600px at 10% 0%, color-mix(in srgb, var(--brand-green-600) 12%, transparent), transparent),
@@ -789,13 +980,46 @@
 
      /* Quote Box */
      .quote-box {
-       background: linear-gradient(135deg, #81C784, #66BB6A, #4CAF50);
+       background: 
+         radial-gradient(ellipse 600px 400px at 30% 20%, rgba(22, 101, 52, 0.9) 0%, rgba(34, 139, 34, 0.8) 30%, rgba(0, 100, 0, 0.7) 60%, transparent 100%),
+         radial-gradient(ellipse 500px 300px at 70% 80%, rgba(0, 128, 0, 0.8) 0%, rgba(34, 139, 34, 0.7) 40%, rgba(22, 101, 52, 0.6) 70%, transparent 100%),
+         linear-gradient(135deg, 
+           rgba(22, 101, 52, 0.95) 0%, 
+           rgba(34, 139, 34, 0.9) 25%, 
+           rgba(0, 100, 0, 0.85) 50%, 
+           rgba(34, 139, 34, 0.8) 75%, 
+           rgba(22, 101, 52, 0.9) 100%);
        border-radius: var(--radius-lg);
        padding: 48px;
        text-align: center;
        box-shadow: var(--shadow-hover);
        position: relative;
        overflow: hidden;
+       transition: all var(--anim-med);
+       border: 2px solid rgba(22, 101, 52, 0.3);
+     }
+     
+     .quote-box:hover {
+       transform: translateY(-4px);
+       box-shadow: 0 25px 60px rgba(22, 101, 52, 0.25);
+       border-color: rgba(22, 101, 52, 0.5);
+     }
+     
+     .quote-box::before {
+       content: '';
+       position: absolute;
+       top: 0;
+       left: 0;
+       right: 0;
+       height: 4px;
+       background: linear-gradient(90deg, 
+         rgba(255, 255, 255, 0.8) 0%, 
+         rgba(34, 197, 94, 0.9) 25%, 
+         rgba(255, 255, 255, 0.8) 50%, 
+         rgba(34, 197, 94, 0.9) 75%, 
+         rgba(255, 255, 255, 0.8) 100%);
+       background-size: 200% 100%;
+       animation: shimmer 3s ease-in-out infinite;
      }
      
      .quote-content {
@@ -815,14 +1039,16 @@
        color: white;
        margin: 0 0 16px 0;
        font-style: italic;
-       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+       line-height: 1.3;
      }
 
      .quote-box cite {
        font-size: 16px;
-       color: var(--brand-green-100);
+       color: rgba(255, 255, 255, 0.9);
        font-style: normal;
        font-weight: 600;
+       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
      }
 
      @keyframes float {
@@ -1547,7 +1773,13 @@
     </section>
 
     <!-- Products -->
-    <section id="products" class="section container reveal" aria-labelledby="products-title">
+    <section id="products" class="section container reveal" aria-labelledby="products-title" style="position: relative;">
+      <!-- Background gradient for products section -->
+      <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: 
+        radial-gradient(ellipse 800px 600px at 20% 0%, rgba(34, 197, 94, 0.04) 0%, rgba(16, 185, 129, 0.03) 25%, rgba(6, 182, 212, 0.02) 50%, transparent 75%),
+        radial-gradient(ellipse 600px 800px at 80% 100%, rgba(16, 185, 129, 0.03) 0%, rgba(6, 182, 212, 0.02) 30%, transparent 60%),
+        linear-gradient(135deg, rgba(34, 197, 94, 0.01) 0%, rgba(16, 185, 129, 0.015) 25%, rgba(6, 182, 212, 0.01) 50%, rgba(16, 185, 129, 0.015) 75%, rgba(34, 197, 94, 0.01) 100%);
+        border-radius: var(--radius-lg); pointer-events: none; z-index: -1;"></div>
       <div class="section-head">
         <h2 id="products-title" data-i18n="products.title">Produkte</h2>
         <div class="tabs" role="tablist" aria-label="Produktkategorien">
@@ -1560,7 +1792,11 @@
 
       <div class="grid" id="productGrid">
         <article class="card green-card" data-category="control">
-          <div class="media"><img src="https://hideandgrow.de/wp-content/uploads/2024/08/steuerung.png" alt="Steuerungseinheit"></div>
+          <div class="media">
+            <div class="product-image-container">
+              <img src="assets/steuerung-removebg-preview.png" alt="Steuerungseinheit">
+            </div>
+          </div>
           <div class="body">
             <span class="badge badge-green" data-i18n="products.badge">Produkt</span>
             <h3 data-i18n="products.control.title">Steuerungseinheit (Control Unit)</h3>
@@ -1572,7 +1808,11 @@
         </article>
 
         <article class="card" data-category="sensors">
-          <div class="media"><img src="https://hideandgrow.de/wp-content/uploads/2024/08/bodensensor-0-10cm.png" alt="Bodensensor 0–10 cm"></div>
+          <div class="media">
+            <div class="product-image-container">
+              <img src="assets/bodensensor-0-10cm-removebg-preview.png" alt="Bodensensor 0–10 cm">
+            </div>
+          </div>
           <div class="body">
             <span class="badge" data-i18n="products.badge">Produkt</span>
             <h3 data-i18n="products.sensor10.title">Bodensensor (0–10 cm)</h3>
@@ -1584,7 +1824,11 @@
         </article>
 
         <article class="card" data-category="sensors">
-          <div class="media"><img src="https://hideandgrow.de/wp-content/uploads/2024/08/bodensensor-0-150cm.png" alt="Bodensensor 0–20 cm / 0–150 cm"></div>
+          <div class="media">
+            <div class="product-image-container">
+              <img src="assets/bodensensor-0-150cm-removebg-preview.png" alt="Bodensensor 0–20 cm / 0–150 cm">
+            </div>
+          </div>
           <div class="body">
             <span class="badge" data-i18n="products.badge">Produkt</span>
             <h3 data-i18n="products.sensor20.title">Bodensensor (0–20 cm)</h3>
@@ -1596,7 +1840,11 @@
         </article>
 
         <article class="card" data-category="sensors">
-          <div class="media"><img src="https://hideandgrow.de/wp-content/uploads/2024/08/bodensensor-0-150cm.png" alt="Bodensensor bis 150 cm"></div>
+          <div class="media">
+            <div class="product-image-container">
+              <img src="assets/bodensensor-0-150cm-removebg-preview.png" alt="Bodensensor bis 150 cm">
+            </div>
+          </div>
           <div class="body">
             <span class="badge" data-i18n="products.badge">Produkt</span>
             <h3 data-i18n="products.sensor150.title">Bodensensor (verlängerbar bis 150 cm)</h3>
@@ -1608,7 +1856,11 @@
         </article>
 
         <article class="card" data-category="control">
-          <div class="media"><img src="https://hideandgrow.de/wp-content/uploads/2024/08/entlueftungsbox.png" alt="Entlüftungspaket"></div>
+          <div class="media">
+            <div class="product-image-container">
+              <img src="assets/entlueftungsbox-removebg-preview.png" alt="Entlüftungspaket">
+            </div>
+          </div>
           <div class="body">
             <span class="badge" data-i18n="products.badge">Produkt</span>
             <h3 data-i18n="products.vent.title">Entlüftungspaket</h3>
@@ -1620,7 +1872,11 @@
         </article>
 
         <article class="card" data-category="control">
-          <div class="media"><img src="https://hideandgrow.de/wp-content/uploads/2024/08/durchflusssensor.png" alt="Durchflusssensor"></div>
+          <div class="media">
+            <div class="product-image-container">
+              <img src="assets/durchflusssensor-removebg-preview.png" alt="Durchflusssensor">
+            </div>
+          </div>
           <div class="body">
             <span class="badge" data-i18n="products.badge">Produkt</span>
             <h3 data-i18n="products.flow.title">Durchflusssensor</h3>
@@ -1632,7 +1888,11 @@
         </article>
 
         <article class="card" data-category="security">
-          <div class="media"><img src="https://hideandgrow.de/wp-content/uploads/2024/08/access-point.png" alt="Access Point"></div>
+          <div class="media">
+            <div class="product-image-container">
+              <img src="assets/access-point-removebg-preview.png" alt="Access Point">
+            </div>
+          </div>
           <div class="body">
             <span class="badge" data-i18n="products.badge">Produkt</span>
             <h3 data-i18n="products.ap.title">Access Point</h3>
@@ -1644,7 +1904,11 @@
         </article>
 
         <article class="card" data-category="security">
-          <div class="media"><img src="https://hideandgrow.de/wp-content/uploads/2024/08/gateway.png" alt="Gateway"></div>
+          <div class="media">
+            <div class="product-image-container">
+              <img src="assets/gateway-removebg-preview.png" alt="Gateway">
+            </div>
+          </div>
           <div class="body">
             <span class="badge" data-i18n="products.badge">Produkt</span>
             <h3 data-i18n="products.gateway.title">Gateway</h3>
