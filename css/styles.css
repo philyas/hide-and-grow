@@ -26,8 +26,12 @@
 
     html, body { height: 100%; }
     
-    /* Remove body height for app */
+    /* Remove body height for app and mobile/tablet */
     body:has(.app-root) { height: auto; }
+    @media (max-width: 979.98px) { 
+      html, body { height: auto; }
+      .site-footer { display: none; }
+    }
     html {
       box-sizing: border-box;
     }
@@ -3180,6 +3184,73 @@
       text-align: center;
       font-weight: 600;
       color: var(--brand-gray-800);
+    }
+    
+    /* Number input group with plus/minus buttons */
+    .number-input-group {
+      display: flex;
+      align-items: center;
+      border: 2px solid var(--brand-gray-200);
+      border-radius: var(--radius-md);
+      background: var(--brand-white);
+      overflow: hidden;
+      width: 100%;
+    }
+    
+    .number-input-group input[type="number"] {
+      border: none;
+      border-radius: 0;
+      flex: 1;
+      text-align: center;
+      padding: 16px 8px;
+      min-width: 0;
+    }
+    
+    .number-btn {
+      width: 48px;
+      height: 48px;
+      border: none;
+      background: var(--brand-gray-100);
+      color: var(--brand-gray-700);
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all var(--anim-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .number-btn:hover {
+      background: var(--brand-green-100);
+      color: var(--brand-green-700);
+    }
+    
+    .number-btn:active {
+      transform: scale(0.95);
+    }
+    
+    .number-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    /* Ensure buttons are fully visible */
+    .number-btn.minus {
+      border-right: 1px solid var(--brand-gray-200);
+    }
+    
+    .number-btn.plus {
+      border-left: 1px solid var(--brand-gray-200);
+    }
+    
+    /* Make sure the input group takes full width */
+    .field .number-input-group {
+      width: 100%;
+      max-width: 100%;
     }
     
     input[type="number"]:hover {

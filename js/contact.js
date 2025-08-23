@@ -144,6 +144,47 @@
       status.textContent = html.lang === 'en' ? 'Something went wrong. Please try again.' : 'Etwas ist schiefgelaufen. Bitte versuche es erneut.';
     }
   });
+  
+  // Plus/Minus button functionality
+  document.querySelectorAll('.number-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.dataset.target;
+      const input = document.getElementById(targetId);
+      if (!input) return;
+      
+      const currentValue = parseInt(input.value) || 0;
+      const min = parseInt(input.min) || 0;
+      
+      if (btn.classList.contains('plus')) {
+        input.value = currentValue + 1;
+      } else if (btn.classList.contains('minus')) {
+        input.value = Math.max(min, currentValue - 1);
+      }
+      
+      // Update button states
+      updateButtonStates(targetId);
+      
+      // Trigger change event for form validation and offer calculation
+      input.dispatchEvent(new Event('change'));
+    });
+  });
+  
+  function updateButtonStates(targetId) {
+    const input = document.getElementById(targetId);
+    if (!input) return;
+    
+    const value = parseInt(input.value) || 0;
+    const min = parseInt(input.min) || 0;
+    
+    const minusBtn = document.querySelector(`[data-target="${targetId}"].minus`);
+    const plusBtn = document.querySelector(`[data-target="${targetId}"].plus`);
+    
+    if (minusBtn) minusBtn.disabled = value <= min;
+    if (plusBtn) plusBtn.disabled = value >= 99; // Max limit
+  }
+  
+  // Initialize button states
+  ['sensorsCount', 'zonesCount'].forEach(id => updateButtonStates(id));
 })();
 
 

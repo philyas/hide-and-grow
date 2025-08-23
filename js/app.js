@@ -119,6 +119,31 @@
     showLogin();
   });
 
+  // Mobile side navigation
+  const menuBtn = document.getElementById('menuToggle');
+  const sideNav = document.getElementById('sideNav');
+  const sideOverlay = document.getElementById('sideOverlay');
+  const closeBtn = document.getElementById('closeSideNav');
+
+  if (menuBtn && sideNav) {
+    function openSide() {
+      sideNav.classList.add('open');
+      sideOverlay && (sideOverlay.hidden = false);
+      document.body.style.overflow = 'hidden';
+      menuBtn.setAttribute('aria-expanded', 'true');
+    }
+    function closeSide() {
+      sideNav.classList.remove('open');
+      sideOverlay && (sideOverlay.hidden = true);
+      document.body.style.overflow = '';
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }
+
+    menuBtn.addEventListener('click', openSide);
+    closeBtn && closeBtn.addEventListener('click', closeSide);
+    sideOverlay && sideOverlay.addEventListener('click', closeSide);
+  }
+
   // Init
   if (isAuthenticated()) showApp();
   else showLogin();

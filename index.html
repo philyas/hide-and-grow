@@ -906,11 +906,19 @@
           <div class="step hidden" data-step="2">
             <div class="field">
               <label for="sensorsCount" data-i18n="contact.q.sensors">Anzahl Sensoren</label>
-              <input type="number" id="sensorsCount" name="sensorsCount" min="0" value="2">
+              <div class="number-input-group">
+                <button type="button" class="number-btn minus" data-target="sensorsCount" aria-label="Verringern">−</button>
+                <input type="number" id="sensorsCount" name="sensorsCount" min="0" value="1">
+                <button type="button" class="number-btn plus" data-target="sensorsCount" aria-label="Erhöhen">+</button>
+              </div>
             </div>
             <div class="field">
               <label for="zonesCount" data-i18n="contact.q.zones">Anzahl Zonen</label>
-              <input type="number" id="zonesCount" name="zonesCount" min="1" value="1">
+              <div class="number-input-group">
+                <button type="button" class="number-btn minus" data-target="zonesCount" aria-label="Verringern">−</button>
+                <input type="number" id="zonesCount" name="zonesCount" min="1" value="1">
+                <button type="button" class="number-btn plus" data-target="zonesCount" aria-label="Erhöhen">+</button>
+              </div>
             </div>
             <div class="field">
               <label style="font-weight:600; color: var(--brand-gray-700);" data-i18n="contact.q.components">Zusätzliche Komponenten</label>
