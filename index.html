@@ -471,6 +471,11 @@
               <circle class="node valve" cx="110" cy="300" r="10"><title>Ventil</title></circle>
               <circle class="node" cx="160" cy="300" r="10"><title>Pumpe</title></circle>
               <circle class="node sensor" cx="200" cy="300" r="10"><title>Durchflusssensor</title></circle>
+              <!-- Info Button for Source -->
+              <g class="info-button" data-info="source" style="cursor: pointer;">
+                <circle cx="180" cy="270" r="12" fill="#4da6ff" opacity="0.9"/>
+                <text x="180" y="275" text-anchor="middle" fill="white" font-size="12" font-weight="bold">i</text>
+              </g>
             </g>
 
             <!-- Main line -->
@@ -479,6 +484,11 @@
               <path class="flow" d="M 210 300 H 850"/>
                <path class="flow" d="M 210 303 H 850"/>
                <path class="flow" d="M 210 297 H 850"/>
+              <!-- Info Button for Main Line -->
+              <g class="info-button" data-info="main" style="cursor: pointer;">
+                <circle cx="530" cy="270" r="12" fill="#4da6ff" opacity="0.9"/>
+                <text x="530" y="275" text-anchor="middle" fill="white" font-size="12" font-weight="bold">i</text>
+              </g>
             </g>
 
             <!-- Branch to Zone A (Beds) -->
@@ -493,6 +503,11 @@
                 <path class="spray" d="M 720 160 q 30 -20 60 0"/>
                 <circle class="node" cx="860" cy="160" r="8"><title>Sprinkler A2</title></circle>
                 <path class="spray" d="M 860 160 q 30 -20 60 0"/>
+              </g>
+              <!-- Info Button for Zone A -->
+              <g class="info-button" data-info="zoneA" style="cursor: pointer;">
+                <circle cx="950" cy="140" r="12" fill="#4da6ff" opacity="0.9"/>
+                <text x="950" y="145" text-anchor="middle" fill="white" font-size="12" font-weight="bold">i</text>
               </g>
               <!-- Droplet following Zone A path -->
                <g class="droplet" fill="#4da6ff" filter="url(#softGlow)">
@@ -518,6 +533,11 @@
                 <circle class="node" cx="860" cy="460" r="8"><title>Sprinkler B2</title></circle>
                 <path class="spray" d="M 860 460 q 30 -20 60 0"/>
               </g>
+              <!-- Info Button for Zone B -->
+              <g class="info-button" data-info="zoneB" style="cursor: pointer;">
+                <circle cx="950" cy="480" r="12" fill="#4da6ff" opacity="0.9"/>
+                <text x="950" y="485" text-anchor="middle" fill="white" font-size="12" font-weight="bold">i</text>
+              </g>
               <!-- Droplet following Zone B path -->
                <g class="droplet" fill="#4da6ff" filter="url(#softGlow)">
                 <circle r="6">
@@ -542,6 +562,11 @@
                 <circle class="node" cx="260" cy="490" r="8"><title>Sprinkler D2</title></circle>
                 <path class="spray" d="M 260 490 q 30 -20 60 0"/>
               </g>
+              <!-- Info Button for Zone D -->
+              <g class="info-button" data-info="zoneD" style="cursor: pointer;">
+                <circle cx="360" cy="450" r="12" fill="#4da6ff" opacity="0.9"/>
+                <text x="360" y="455" text-anchor="middle" fill="white" font-size="12" font-weight="bold">i</text>
+              </g>
               <g class="droplet" fill="#4da6ff" filter="url(#softGlow)">
                 <circle r="6">
                   <animateMotion dur="3s" repeatCount="indefinite" rotate="auto">
@@ -565,6 +590,11 @@
                 <circle class="node" cx="260" cy="140" r="8"><title>Sprinkler C2</title></circle>
                 <path class="spray" d="M 260 140 q 30 -20 60 0"/>
               </g>
+              <!-- Info Button for Zone C -->
+              <g class="info-button" data-info="zoneC" style="cursor: pointer;">
+                <circle cx="360" cy="100" r="12" fill="#4da6ff" opacity="0.9"/>
+                <text x="360" y="105" text-anchor="middle" fill="white" font-size="12" font-weight="bold">i</text>
+              </g>
               <g class="droplet" fill="#4da6ff" filter="url(#softGlow)">
                 <circle r="6">
                   <animateMotion dur="3s" repeatCount="indefinite" rotate="auto">
@@ -578,6 +608,19 @@
             <!-- Labels -->
             <text class="label" x="300" y="285">Hauptleitung</text>
           </svg>
+        </div>
+        
+        <!-- Info Modal -->
+        <div id="infoModal" class="info-modal" style="display: none;">
+          <div class="info-modal-content">
+            <div class="info-modal-header">
+              <h3 id="infoModalTitle">Information</h3>
+              <button class="info-modal-close" id="infoModalClose">&times;</button>
+            </div>
+            <div class="info-modal-body" id="infoModalBody">
+              <!-- Content will be populated by JavaScript -->
+            </div>
+          </div>
         </div>
       </div>
     </section>

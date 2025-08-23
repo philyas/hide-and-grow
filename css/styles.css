@@ -2416,6 +2416,175 @@
      @keyframes flow { to { stroke-dashoffset: -32; } }
      @keyframes spray { 0%, 100% { opacity: 0.1; } 50% { opacity: 0.9; } }
 
+     /* Info Button Styles */
+     .info-button {
+       filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+     }
+     
+     /* Info Modal Styles */
+     .info-modal {
+       position: fixed;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       background: rgba(0, 0, 0, 0.5);
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       z-index: 1000;
+       opacity: 0;
+       visibility: hidden;
+       transition: all 0.3s ease;
+     }
+     
+     .info-modal.show {
+       opacity: 1;
+       visibility: visible;
+     }
+     
+     .info-modal-content {
+       background: var(--brand-white);
+       border-radius: var(--radius-lg);
+       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+       max-width: 500px;
+       width: 90%;
+       max-height: 80vh;
+       overflow: hidden;
+       transform: scale(0.9);
+       transition: transform 0.3s ease;
+     }
+     
+     .info-modal.show .info-modal-content {
+       transform: scale(1);
+     }
+     
+     .info-modal-header {
+       background: linear-gradient(135deg, var(--brand-green-500), var(--brand-blue-500));
+       color: var(--brand-white);
+       padding: 20px 24px;
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+     }
+     
+     .info-modal-header h3 {
+       margin: 0;
+       font-size: 1.25rem;
+       font-weight: 600;
+     }
+     
+     .info-modal-close {
+       background: none;
+       border: none;
+       color: var(--brand-white);
+       font-size: 1.5rem;
+       cursor: pointer;
+       padding: 0;
+       width: 32px;
+       height: 32px;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       border-radius: 50%;
+       transition: background-color 0.2s ease;
+     }
+     
+     .info-modal-close:hover {
+       background: rgba(255, 255, 255, 0.2);
+     }
+     
+     .info-modal-body {
+       padding: 24px;
+       line-height: 1.6;
+     }
+     
+     .info-modal-body h4 {
+       color: var(--brand-green-700);
+       margin: 0 0 12px 0;
+       font-size: 1.1rem;
+     }
+     
+     .info-modal-body p {
+       margin: 0 0 16px 0;
+       color: var(--brand-gray-700);
+     }
+     
+     .info-modal-body ul {
+       margin: 0 0 16px 0;
+       padding-left: 20px;
+     }
+     
+     .info-modal-body li {
+       margin: 0 0 8px 0;
+       color: var(--brand-gray-700);
+     }
+     
+     .info-modal-body .tech-specs {
+       background: var(--brand-gray-50);
+       padding: 16px;
+       border-radius: var(--radius-md);
+       border-left: 4px solid var(--brand-green-500);
+       margin: 16px 0;
+     }
+     
+     .info-modal-body .tech-specs h5 {
+       margin: 0 0 8px 0;
+       color: var(--brand-green-700);
+       font-size: 0.9rem;
+       font-weight: 600;
+     }
+     
+     .info-modal-body .tech-specs p {
+       margin: 0;
+       font-size: 0.9rem;
+       color: var(--brand-gray-600);
+     }
+     
+     /* Responsive adjustments for info modal */
+     @media (max-width: 768px) {
+       .info-modal-content {
+         width: 95%;
+         max-height: 90vh;
+         margin: 20px;
+       }
+       
+       .info-modal-header {
+         padding: 16px 20px;
+       }
+       
+       .info-modal-header h3 {
+         font-size: 1.1rem;
+       }
+       
+       .info-modal-body {
+         padding: 20px;
+       }
+       
+       .info-modal-body h4 {
+         font-size: 1rem;
+       }
+       
+       .info-modal-body .tech-specs {
+         padding: 12px;
+       }
+     }
+     
+     @media (max-width: 480px) {
+       .info-modal-content {
+         width: 98%;
+         margin: 10px;
+       }
+       
+       .info-modal-header {
+         padding: 14px 16px;
+       }
+       
+       .info-modal-body {
+         padding: 16px;
+       }
+     }
+
      /* Droplet styles - much lighter and faster */
      .droplet {
        fill: #e0f2fe !important;
