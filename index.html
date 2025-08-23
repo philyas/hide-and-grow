@@ -126,6 +126,7 @@
     .btn-primary { background: var(--brand-green-600); color: var(--brand-white); box-shadow: var(--shadow-soft); }
     .btn-secondary { background: color-mix(in srgb, var(--brand-white) 14%, transparent); color: var(--brand-white); border: 1px solid color-mix(in srgb, var(--brand-white) 20%, transparent); }
     .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+    .cta-row .btn.active { outline: 3px solid color-mix(in srgb, var(--brand-white) 65%, transparent); filter: saturate(115%); }
 
     .source-note { margin-top: 10px; font-size: 13px; color: #d7ece2; }
     .source-note a { color: #d7ece2; text-decoration: underline; }
@@ -144,6 +145,49 @@
     /* Audience cards */
     .audiences { display: grid; grid-template-columns: 1fr; gap: 16px; }
     @media (min-width: 900px) { .audiences { grid-template-columns: 1fr 1fr; } }
+    
+    /* Audience modes */
+    body.mode-pro { 
+      /* slightly different green palette for pro */
+      --brand-green-600: #0f6a44;
+      --brand-green-500: #128a58;
+      --brand-green-300: #5ec79b;
+      /* subtly darker page background */
+      background:
+        radial-gradient(1000px 800px at 20% 0%, rgba(15,26,20,0.07) 0%, transparent 60%),
+        radial-gradient(800px 1000px at 80% 100%, rgba(15,26,20,0.06) 0%, transparent 60%),
+        color-mix(in srgb, var(--brand-dark) 8%, var(--brand-white));
+    }
+    body.mode-pro .site-header {
+      backdrop-filter: saturate(160%) blur(10px);
+      background: color-mix(in srgb, var(--brand-dark) 70%, transparent);
+      border-bottom-color: color-mix(in srgb, var(--brand-dark) 20%, transparent);
+    }
+    body.mode-pro .top-nav a { color: color-mix(in srgb, var(--brand-white) 80%, var(--brand-dark)); }
+    body.mode-pro .lang-switch { background: color-mix(in srgb, var(--brand-dark) 40%, transparent); border-color: color-mix(in srgb, var(--brand-dark) 40%, transparent); }
+    body.mode-pro .lang-switch button { color: var(--brand-white); }
+    body.mode-pro .lang-switch button.active { background: var(--brand-dark); }
+    body.mode-pro .hero { background:
+      radial-gradient(1200px 600px at 50% 30%, color-mix(in srgb, var(--brand-dark) 40%, transparent), transparent),
+      linear-gradient(180deg, #0c1511 0%, var(--brand-dark) 30%);
+    }
+    body.mode-pro .hero::after { background: linear-gradient(180deg, rgba(15,26,20,0.55) 0%, rgba(15,26,20,0.35) 40%, rgba(15,26,20,0.20) 100%); }
+    body.mode-pro .eyebrow { background: color-mix(in srgb, var(--brand-white) 10%, transparent); }
+    body.mode-pro .btn-primary { background: var(--brand-dark); }
+    body.mode-pro .tab.active { background: var(--brand-dark); border-color: var(--brand-dark); }
+    body.mode-pro .card { border-radius: 10px; }
+    body.mode-b2c .card { border-radius: var(--radius-lg); }
+    body.mode-pro .card:hover { border-color: var(--brand-gray-200); }
+    body.mode-pro .card::before { opacity: 0.2; }
+    body.mode-pro .chip { background: color-mix(in srgb, var(--brand-dark) 30%, transparent); color: var(--brand-white); border-color: color-mix(in srgb, var(--brand-dark) 40%, transparent); }
+    body.mode-pro .btn-secondary { background: color-mix(in srgb, var(--brand-white) 10%, transparent); color: var(--brand-white); border-color: color-mix(in srgb, var(--brand-white) 16%, transparent); }
+    body.mode-pro .section h2 { color: color-mix(in srgb, var(--brand-dark) 20%, var(--brand-green-700)); }
+    body.mode-pro .section p.lead { color: color-mix(in srgb, var(--brand-white) 80%, var(--brand-gray-700)); }
+    
+    /* Audience panel */
+    #audiencePanel { margin: 12px 0 24px; }
+    #audiencePanel .aud-content h3 { margin: 4px 0; }
+    #audiencePanel .aud-content p { margin: 0 0 8px; color: var(--brand-gray-700); }
     .aud-card { position: relative; overflow: clip; border-radius: var(--radius-lg); background: var(--brand-white); border: 1px solid var(--brand-gray-200); box-shadow: var(--shadow-soft); min-height: 260px; }
     .aud-card .bg { position: absolute; inset: 0; background: radial-gradient(800px 400px at 0% 100%, color-mix(in srgb, var(--brand-green-600) 10%, transparent), transparent); pointer-events: none; transition: transform var(--anim-slow), opacity var(--anim-slow); opacity: 0.6; }
     .aud-card:hover .bg { transform: scale(1.05); opacity: 0.85; }
@@ -159,6 +203,8 @@
     .grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 16px; }
     @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 980px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+    /* Hide product cards by audience selection */
+    #productGrid .card[data-aud-hidden] { display: none !important; }
 
     .card { 
       position: relative; 
@@ -1716,6 +1762,212 @@
         margin-bottom: -30px;
       }
     }
+
+    /* Wizard styling */
+    .step {
+      animation: fadeIn 0.4s ease-out;
+    }
+    
+    #wizardStepLabel {
+      background: linear-gradient(135deg, var(--brand-green-50), var(--brand-blue-50));
+      padding: 16px 20px;
+      border-radius: var(--radius-lg);
+      border-left: 4px solid var(--brand-green-500);
+      margin-bottom: 24px;
+      font-size: 16px;
+      color: var(--brand-gray-800);
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(37,153,99,0.1);
+    }
+    
+    .wizard-nav {
+      display: flex;
+      gap: 16px;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--brand-gray-200);
+    }
+    
+    .wizard-nav .btn {
+      padding: 14px 28px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: var(--radius-lg);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      min-width: 120px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .wizard-nav .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .wizard-nav .btn:hover::before {
+      left: 100%;
+    }
+    
+    .wizard-nav .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    
+    .wizard-nav .btn:active {
+      transform: translateY(0);
+    }
+    
+    /* Step-specific styling */
+    .step[data-step="2"] .field {
+      background: var(--brand-gray-50);
+      padding: 20px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--brand-gray-200);
+      margin-bottom: 16px;
+    }
+    
+    .step[data-step="2"] .field:last-child {
+      background: var(--brand-white);
+      border: 2px solid var(--brand-green-100);
+    }
+    
+    .step[data-step="2"] label[style*="font-weight:600"] {
+      color: var(--brand-green-700);
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+    
+    .step[data-step="2"] .field:last-child label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .step[data-step="2"] .field:last-child label:hover {
+      color: var(--brand-green-600);
+      transform: translateX(4px);
+    }
+    
+    .step[data-step="2"] input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--brand-gray-400);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    
+    .step[data-step="2"] input[type="checkbox"]:checked {
+      background: var(--brand-green-500);
+      border-color: var(--brand-green-600);
+      transform: scale(1.1);
+    }
+    
+    .step[data-step="2"] input[type="checkbox"]:checked::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    
+    /* Offer summary styling */
+    .step[data-step="3"] .field:first-child > div {
+      background: linear-gradient(135deg, var(--brand-green-50), var(--brand-blue-50));
+      border: 2px solid var(--brand-green-200);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(37,153,99,0.1);
+    }
+    
+    .step[data-step="3"] .field:first-child > div > div:first-child {
+      color: var(--brand-green-700);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    
+    .step[data-step="3"] .field:first-child > div > div:nth-child(2) {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--brand-green-600);
+      text-align: center;
+      margin-bottom: 16px;
+      padding: 12px;
+      background: var(--brand-white);
+      border-radius: var(--radius-md);
+      border: 2px solid var(--brand-green-300);
+    }
+    
+    .step[data-step="3"] .field:first-child > div > div:nth-child(3) {
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      background: var(--brand-white);
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--brand-gray-200);
+    }
+    
+    .step[data-step="3"] .field:first-child > div > div:last-child {
+      font-style: italic;
+      margin-top: 16px;
+      text-align: center;
+    }
+    
+    /* Number input styling */
+    input[type="number"] {
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 2px solid var(--brand-gray-200);
+      background: var(--brand-white);
+      outline: none;
+      font-size: 16px;
+      transition: all var(--anim-fast);
+      text-align: center;
+      font-weight: 600;
+      color: var(--brand-gray-800);
+    }
+    
+    input[type="number"]:hover {
+      border-color: var(--brand-green-400);
+      background: var(--brand-green-50);
+    }
+    
+    input[type="number"]:focus {
+      border-color: var(--brand-green-500);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand-green-500) 15%, transparent);
+      transform: translateY(-1px);
+      background: var(--brand-white);
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes checkmark {
+      0% { transform: translate(-50%, -50%) rotate(45deg) scale(0); }
+      50% { transform: translate(-50%, -50%) rotate(45deg) scale(1.2); }
+      100% { transform: translate(-50%, -50%) rotate(45deg) scale(1); }
+    }
   </style>
 </head>
 <body>
@@ -1750,8 +2002,14 @@
           In unserem 90-Sekunden-Clip zeigen wir, wie sich das System automatisch an die Bedürfnisse Ihrer Pflanzen anpasst – effizient und ressourcenschonend.
         </p>
         <div class="cta-row">
-          <a href="#products" class="btn btn-primary" data-scroll data-i18n="hero.pro">Für Profis</a>
-          <a href="#products" class="btn btn-secondary" data-scroll data-i18n="hero.enthusiasts">Für Gartenliebhaber</a>
+          <a href="#" class="btn btn-primary" data-aud-toggle="pro" data-i18n="hero.pro">Für Profis</a>
+          <a href="#" class="btn btn-secondary" data-aud-toggle="b2c" data-i18n="hero.enthusiasts">Für Gartenliebhaber</a>
+          <a href="#contact" class="btn btn-green cta-offer" data-i18n="hero.cta.offer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
+              <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z" fill="currentColor"/>
+            </svg>
+            <span data-i18n="hero.cta.offer.text">Angebot anfordern</span>
+          </a>
         </div>
       </div>
     </section>
@@ -1790,8 +2048,46 @@
         </div>
       </div>
 
+      <!-- Audience Panel -->
+      <div id="audiencePanel" class="audiences" aria-live="polite">
+        <article class="aud-card" data-aud="pro">
+          <div class="bg"></div>
+          <div class="aud-content">
+            <span class="chip" data-i18n="audiences.b2b.badge">B2B • Profi-Landschaftsgärtner</span>
+            <h3 data-i18n="audiences.b2b.title">Automatisierte ganzjährige Bewässerung</h3>
+            <p data-i18n="audiences.b2b.copy">Ressourcenschonend, werterhaltend und sicher. Sensor-Technologie (Bodenfeuchte & -temperatur via Bluetooth), Flow- & Entlüftungspakete, Access Point/Gateway.</p>
+            <div class="chips">
+              <span class="chip" data-i18n="audiences.b2b.c1">Sensoren</span>
+              <span class="chip" data-i18n="audiences.b2b.c2">Flow</span>
+              <span class="chip" data-i18n="audiences.b2b.c3">Gateway</span>
+            </div>
+            <div class="cta-row">
+              <a href="#products" class="btn btn-primary" data-i18n="audiences.cta.learn">Mehr erfahren</a>
+              <a href="#contact" class="btn btn-green cta-offer" data-i18n="audiences.cta.offer">Angebot anfordern</a>
+            </div>
+          </div>
+        </article>
+        <article class="aud-card" data-aud="b2c">
+          <div class="bg"></div>
+          <div class="aud-content">
+            <span class="chip" data-i18n="audiences.b2c.badge">B2C • Gartenfreund</span>
+            <h3 data-i18n="audiences.b2c.title">Einfach, nachhaltig, zeitsparend</h3>
+            <p data-i18n="audiences.b2c.copy">Individuell pro Pflanze, effizient in Hitzeperioden und im Klimawandel. Installieren, verbinden, zurücklehnen.</p>
+            <div class="chips">
+              <span class="chip" data-i18n="audiences.b2c.c1">Nachhaltig</span>
+              <span class="chip" data-i18n="audiences.b2c.c2">Einfach</span>
+              <span class="chip" data-i18n="audiences.b2c.c3">Zeit sparen</span>
+            </div>
+            <div class="cta-row">
+              <a href="#products" class="btn btn-secondary" data-i18n="audiences.cta.discover">Jetzt entdecken</a>
+              <a href="#contact" class="btn btn-green cta-offer" data-i18n="audiences.cta.offer">Angebot anfordern</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
       <div class="grid" id="productGrid">
-        <article class="card green-card" data-category="control">
+        <article class="card green-card" data-category="control" data-aud="pro">
           <div class="media">
             <div class="product-image-container">
               <img src="assets/steuerung-removebg-preview.png" alt="Steuerungseinheit">
@@ -1804,10 +2100,11 @@
           </div>
           <div class="hover-info">
             <a href="#" class="btn btn-green" data-i18n="products.details">Details</a>
+            <a href="#contact" class="btn btn-primary cta-offer" data-i18n="products.cta.offer">Angebot</a>
           </div>
         </article>
 
-        <article class="card" data-category="sensors">
+        <article class="card" data-category="sensors" data-aud="b2c">
           <div class="media">
             <div class="product-image-container">
               <img src="assets/bodensensor-0-10cm-removebg-preview.png" alt="Bodensensor 0–10 cm">
@@ -1820,10 +2117,11 @@
           </div>
           <div class="hover-info">
             <a href="#" class="btn btn-primary" data-i18n="products.details">Details</a>
+            <a href="#contact" class="btn btn-green cta-offer" data-i18n="products.cta.offer">Angebot</a>
           </div>
         </article>
 
-        <article class="card" data-category="sensors">
+        <article class="card" data-category="sensors" data-aud="pro">
           <div class="media">
             <div class="product-image-container">
               <img src="assets/bodensensor-0-150cm-removebg-preview.png" alt="Bodensensor 0–20 cm / 0–150 cm">
@@ -1836,10 +2134,11 @@
           </div>
           <div class="hover-info">
             <a href="#" class="btn btn-primary" data-i18n="products.details">Details</a>
+            <a href="#contact" class="btn btn-green cta-offer" data-i18n="products.cta.offer">Angebot</a>
           </div>
         </article>
 
-        <article class="card" data-category="sensors">
+        <article class="card" data-category="sensors" data-aud="pro">
           <div class="media">
             <div class="product-image-container">
               <img src="assets/bodensensor-0-150cm-removebg-preview.png" alt="Bodensensor bis 150 cm">
@@ -1852,10 +2151,11 @@
           </div>
           <div class="hover-info">
             <a href="#" class="btn btn-primary" data-i18n="products.details">Details</a>
+            <a href="#contact" class="btn btn-green cta-offer" data-i18n="products.cta.offer">Angebot</a>
           </div>
         </article>
 
-        <article class="card" data-category="control">
+        <article class="card" data-category="control" data-aud="pro">
           <div class="media">
             <div class="product-image-container">
               <img src="assets/entlueftungsbox-removebg-preview.png" alt="Entlüftungspaket">
@@ -1868,10 +2168,11 @@
           </div>
           <div class="hover-info">
             <a href="#" class="btn btn-primary" data-i18n="products.details">Details</a>
+            <a href="#contact" class="btn btn-green cta-offer" data-i18n="products.cta.offer">Angebot</a>
           </div>
         </article>
 
-        <article class="card" data-category="control">
+        <article class="card" data-category="control" data-aud="pro">
           <div class="media">
             <div class="product-image-container">
               <img src="assets/durchflusssensor-removebg-preview.png" alt="Durchflusssensor">
@@ -1884,10 +2185,11 @@
           </div>
           <div class="hover-info">
             <a href="#" class="btn btn-primary" data-i18n="products.details">Details</a>
+            <a href="#contact" class="btn btn-green cta-offer" data-i18n="products.cta.offer">Angebot</a>
           </div>
         </article>
 
-        <article class="card" data-category="security">
+        <article class="card" data-category="security" data-aud="pro">
           <div class="media">
             <div class="product-image-container">
               <img src="assets/access-point-removebg-preview.png" alt="Access Point">
@@ -1900,10 +2202,11 @@
           </div>
           <div class="hover-info">
             <a href="#" class="btn btn-primary" data-i18n="products.details">Details</a>
+            <a href="#contact" class="btn btn-green cta-offer" data-i18n="products.cta.offer">Angebot</a>
           </div>
         </article>
 
-        <article class="card" data-category="security">
+        <article class="card" data-category="security" data-aud="pro">
           <div class="media">
             <div class="product-image-container">
               <img src="assets/gateway-removebg-preview.png" alt="Gateway">
@@ -1916,19 +2219,139 @@
           </div>
           <div class="hover-info">
             <a href="#" class="btn btn-primary" data-i18n="products.details">Details</a>
+            <a href="#contact" class="btn btn-green cta-offer" data-i18n="products.cta.offer">Angebot</a>
           </div>
         </article>
       </div>
     </section>
 
-    <!-- Section Transition: Products to Vision Video -->
-    <div class="section-transition">
-      <div class="zigzag-transition">
-        <svg viewBox="0 0 1200 80" preserveAspectRatio="none">
-          <path d="M0,0 L100,40 L200,0 L300,40 L400,0 L500,40 L600,0 L700,40 L800,0 L900,40 L1000,0 L1100,40 L1200,0 L1200,80 L0,80 Z" fill="var(--brand-white)"/>
-        </svg>
-      </div>
-    </div>
+         <!-- Interactive Irrigation Plan -->
+     <section class="section container reveal irrigation-section" aria-labelledby="irrigation-title">
+       <div class="section-head">
+         <h2 id="irrigation-title" data-i18n="irrig.title">Interaktiver Bewässerungsplan</h2>
+         <p class="lead" data-i18n="irrig.lead">Live-Animation des Wasserflusses – steuerbare Zonen, Tempo und Blueprint-Overlay.</p>
+       </div>
+       <div id="irrigation" class="irrigation">
+         <div class="irrigation-ui">
+           <div class="group">
+             <button id="playPause" class="btn btn-primary" aria-pressed="true" data-i18n="irrig.pause">Pause</button>
+             <span class="toggle">
+               <label for="speed" data-i18n="irrig.speed">Geschwindigkeit</label>
+               <input id="speed" type="range" min="0.5" max="3" step="0.1" value="1" aria-valuemin="0.5" aria-valuemax="3" aria-valuenow="1">
+             </span>
+           </div>
+           <div class="group" role="group" aria-label="Zonen">
+             <label class="toggle"><input id="zoneA" type="checkbox" checked> <span data-i18n="irrig.zoneA">Zone A (Beete)</span></label>
+             <label class="toggle"><input id="zoneB" type="checkbox" checked> <span data-i18n="irrig.zoneB">Zone B (Rasen)</span></label>
+           </div>
+           <div class="group">
+             <label class="toggle"><input id="overlay" type="checkbox"> <span data-i18n="irrig.overlay">Blueprint-Overlay</span></label>
+           </div>
+         </div>
+         <div class="irrigation-svg">
+           <svg viewBox="0 0 1000 600" role="img" aria-label="Interaktiver Bewässerungsplan">
+             <defs>
+               <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+                 <feGaussianBlur stdDeviation="3" result="blur"/>
+                 <feMerge>
+                   <feMergeNode in="blur"/>
+                   <feMergeNode in="SourceGraphic"/>
+                 </feMerge>
+               </filter>
+               <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                 <path d="M0,0 L8,4 L0,8 Z" fill="currentColor"></path>
+               </marker>
+               <linearGradient id="srcGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                 <stop offset="0%" stop-color="#e9f6f0"/>
+                 <stop offset="100%" stop-color="#cfeadd"/>
+               </linearGradient>
+             </defs>
+
+             <!-- Optional background overlay image from user-provided diagram -->
+             <image class="overlay-img" href="https://clearpond.com.au/wp-content/uploads/2025/02/pond-sensor-diagram.jpg" x="0" y="0" width="1000" height="600" preserveAspectRatio="xMidYMid slice" />
+
+             <!-- Beds / Lawn areas -->
+             <g aria-label="Flächen">
+               <rect class="bed" x="620" y="80" width="320" height="150" rx="10" />
+               <rect class="bed" x="620" y="370" width="320" height="140" rx="10" />
+               <text class="label" x="630" y="110">Beet A</text>
+               <text class="label" x="630" y="400">Rasen B</text>
+             </g>
+
+             <!-- Source / Pump / Filter cluster -->
+             <g aria-label="Quelle" id="source">
+               <rect x="40" y="260" width="140" height="80" rx="10" fill="url(#srcGrad)" stroke="#9fb3aa" stroke-width="2"/>
+               <text class="label" x="50" y="255">Wasserquelle</text>
+               <circle class="node valve" cx="110" cy="300" r="10"><title>Ventil</title></circle>
+               <circle class="node" cx="160" cy="300" r="10"><title>Pumpe</title></circle>
+               <circle class="node sensor" cx="200" cy="300" r="10"><title>Durchflusssensor</title></circle>
+             </g>
+
+             <!-- Main line -->
+             <g id="main">
+               <path id="pipe-main" class="pipe" d="M 210 300 H 850"/>
+               <path class="flow" d="M 210 300 H 850"/>
+             </g>
+
+             <!-- Branch to Zone A (Beds) -->
+             <g id="zoneAGroup" data-zone="A">
+               <path class="pipe" d="M 420 300 V 160 H 930"/>
+               <path class="flow" d="M 420 300 V 160 H 930"/>
+               <!-- Sprinklers A -->
+               <g>
+                 <circle class="node" cx="720" cy="160" r="8"><title>Sprinkler A1</title></circle>
+                 <path class="spray" d="M 720 160 q 30 -20 60 0"/>
+                 <circle class="node" cx="860" cy="160" r="8"><title>Sprinkler A2</title></circle>
+                 <path class="spray" d="M 860 160 q 30 -20 60 0"/>
+               </g>
+               <!-- Droplet following Zone A path -->
+               <g class="droplet" fill="#4da6ff" filter="url(#softGlow)">
+                 <circle r="6">
+                   <animateMotion dur="8s" repeatCount="indefinite" rotate="auto">
+                     <mpath href="#zoneAPathRef"/>
+                   </animateMotion>
+                 </circle>
+               </g>
+               <path id="zoneAPathRef" d="M 420 300 V 160 H 930" fill="none" stroke="none"/>
+             </g>
+
+             <!-- Branch to Zone B (Lawn) -->
+             <g id="zoneBGroup" data-zone="B">
+               <path class="pipe" d="M 600 300 V 460 H 930"/>
+               <path class="flow" d="M 600 300 V 460 H 930"/>
+               <!-- Sprinklers B -->
+               <g>
+                 <circle class="node" cx="720" cy="460" r="8"><title>Sprinkler B1</title></circle>
+                 <path class="spray" d="M 720 460 q 30 -20 60 0"/>
+                 <circle class="node" cx="860" cy="460" r="8"><title>Sprinkler B2</title></circle>
+                 <path class="spray" d="M 860 460 q 30 -20 60 0"/>
+               </g>
+               <!-- Droplet following Zone B path -->
+               <g class="droplet" fill="#4da6ff" filter="url(#softGlow)">
+                 <circle r="6">
+                   <animateMotion dur="8s" repeatCount="indefinite" rotate="auto">
+                     <mpath href="#zoneBPathRef"/>
+                   </animateMotion>
+                 </circle>
+               </g>
+               <path id="zoneBPathRef" d="M 600 300 V 460 H 930" fill="none" stroke="none"/>
+             </g>
+
+             <!-- Labels -->
+             <text class="label" x="300" y="285">Hauptleitung</text>
+           </svg>
+         </div>
+       </div>
+     </section>
+
+     <!-- Section Transition: Products to Vision Video -->
+     <div class="section-transition">
+       <div class="zigzag-transition">
+         <svg viewBox="0 0 1200 80" preserveAspectRatio="none">
+           <path d="M0,0 L100,40 L200,0 L300,40 L400,0 L500,40 L600,0 L700,40 L800,0 L900,40 L1000,0 L1100,40 L1200,0 L1200,80 L0,80 Z" fill="var(--brand-white)"/>
+         </svg>
+       </div>
+     </div>
 
     <!-- Vision Video Section -->
     <section class="section container reveal" aria-labelledby="vision-video-title">
@@ -1979,6 +2402,9 @@
           </div>
           <h3 data-i18n="benefits.water.title">Wassersparen</h3>
           <p data-i18n="benefits.water.copy">Bis zu 70% weniger Wasserverbrauch durch präzise Bedarfsmessung.</p>
+          <div class="benefit-cta">
+            <a href="#contact" class="btn btn-green cta-offer" data-i18n="benefits.cta.offer">Angebot anfordern</a>
+          </div>
           <div class="benefit-logo">
             <img src="https://hideandgrow.de/wp-content/uploads/2023/02/HID.png" alt="Hide & Grow" style="max-width:80px;width:100%;height:auto;opacity:1;display:block;margin:0 auto;">
           </div>
@@ -1994,6 +2420,9 @@
           </div>
           <h3 data-i18n="benefits.growth.title">Optimales Pflanzenwachstum</h3>
           <p data-i18n="benefits.growth.copy">Individuelle Bewässerung je nach Pflanzentyp und Bodenbeschaffenheit.</p>
+          <div class="benefit-cta">
+            <a href="#contact" class="btn btn-green cta-offer" data-i18n="benefits.cta.offer">Angebot anfordern</a>
+          </div>
           <div class="benefit-logo">
             <img src="https://hideandgrow.de/wp-content/uploads/2023/02/HID.png" alt="Hide & Grow" style="max-width:80px;width:100%;height:auto;opacity:1;display:block;margin:0 auto;">
           </div>
@@ -2008,6 +2437,9 @@
           </div>
           <h3 data-i18n="benefits.time.title">Zeitersparnis</h3>
           <p data-i18n="benefits.time.copy">Vollautomatische Bewässerung rund um die Uhr, auch im Urlaub.</p>
+          <div class="benefit-cta">
+            <a href="#contact" class="btn btn-green cta-offer" data-i18n="benefits.cta.offer">Angebot anfordern</a>
+          </div>
           <div class="benefit-logo">
             <img src="https://hideandgrow.de/wp-content/uploads/2023/02/HID.png" alt="Hide & Grow" style="max-width:80px;width:100%;height:auto;opacity:1;display:block;margin:0 auto;">
           </div>
@@ -2023,6 +2455,9 @@
           </div>
           <h3 data-i18n="benefits.eco.title">Umweltschutz</h3>
           <p data-i18n="benefits.eco.copy">Nachhaltige Ressourcennutzung für eine grünere Zukunft.</p>
+          <div class="benefit-cta">
+            <a href="#contact" class="btn btn-green cta-offer" data-i18n="benefits.cta.offer">Angebot anfordern</a>
+          </div>
           <div class="benefit-logo">
             <img src="https://hideandgrow.de/wp-content/uploads/2023/02/HID.png" alt="Hide & Grow" style="max-width:80px;width:100%;height:auto;opacity:1;display:block;margin:0 auto;">
           </div>
@@ -2070,6 +2505,9 @@
            <div class="text">
              <h3 data-i18n="stories.s1.title">Marke & Mission</h3>
              <p data-i18n="stories.s1.copy">Unser Logo steht für smarte Bewässerung und grüne Zukunft.</p>
+             <div class="story-cta">
+               <a href="#contact" class="btn btn-green cta-offer" data-i18n="stories.cta.offer">Angebot anfordern</a>
+             </div>
            </div>
          </div>
                    <div class="image-text-pair">
@@ -2077,6 +2515,9 @@
              <div class="text">
                <h3 data-i18n="stories.s2.title">Kontakt auf Augenhöhe</h3>
                <p data-i18n="stories.s2.copy">Ob privat oder gewerblich – wir beraten transparent und lösungsorientiert.</p>
+               <div class="story-cta">
+                 <a href="#contact" class="btn btn-green cta-offer" data-i18n="stories.cta.offer">Angebot anfordern</a>
+               </div>
              </div>
            </div>
       </div>
@@ -2110,6 +2551,9 @@
             <span class="reference-badge" data-i18n="refs.award.badge">Auszeichnung</span>
             <h3 data-i18n="refs.award.title">2. Platz Gründerpreis Bayern</h3>
             <p data-i18n="refs.award.copy">Ausgezeichnet für Innovation und Nachhaltigkeit – das Publikum überzeugt von unserer Vision einer grüneren Zukunft.</p>
+            <div class="reference-cta">
+              <a href="#contact" class="btn btn-green cta-offer" data-i18n="refs.cta.offer">Angebot anfordern</a>
+            </div>
           </div>
         </article>
         
@@ -2125,6 +2569,9 @@
             <span class="reference-badge" data-i18n="refs.film.badge">Imagefilm</span>
             <h3 data-i18n="refs.film.title">Einblicke in das System</h3>
             <p data-i18n="refs.film.copy">Im Imagefilm zeigen wir die leichte Installation und die präzise Steuerung unseres intelligenten Bewässerungssystems.</p>
+            <div class="reference-cta">
+              <a href="#contact" class="btn btn-green cta-offer" data-i18n="refs.cta.offer">Angebot anfordern</a>
+            </div>
           </div>
         </article>
         
@@ -2199,40 +2646,93 @@
             <label for="website">Website</label>
             <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
           </div>
-          <div class="field">
-            <label for="name" data-i18n="contact.name">Name</label>
-            <input type="text" id="name" name="name" required placeholder="Max Mustermann" data-i18n-placeholder="contact.namePlaceholder">
+
+          <div class="field" aria-live="polite" id="wizardStepLabel" style="font-weight:700; color: var(--brand-gray-700);">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span id="stepLabelText"></span>
+              <button type="button" id="resetWizard" class="btn btn-secondary" style="font-size:12px; padding:8px 16px; min-width:auto;" data-i18n="contact.reset">Von vorne beginnen</button>
+            </div>
           </div>
-          <div class="field">
-            <label for="email" data-i18n="contact.email">E-Mail</label>
-            <input type="email" id="email" name="email" required placeholder="max@example.com" data-i18n-placeholder="contact.emailPlaceholder">
+
+          <!-- Step 1: Basics -->
+          <div class="step" data-step="1">
+            <div class="field">
+              <label for="type" data-i18n="contact.type">Anfrage-Typ</label>
+              <select id="type" name="type">
+                <option value="private" data-i18n="contact.typePrivate">Privat</option>
+                <option value="business" data-i18n="contact.typeBusiness">Gewerblich</option>
+              </select>
+            </div>
+            <div class="field hidden" id="projectSizeField">
+              <label for="projectSize" data-i18n="contact.projectSize">Projektgröße</label>
+              <select id="projectSize" name="projectSize">
+                <option value="small" data-i18n="contact.sizeSmall">Klein (bis 100 m²)</option>
+                <option value="medium" data-i18n="contact.sizeMedium">Mittel (100–500 m²)</option>
+                <option value="large" data-i18n="contact.sizeLarge">Groß (500+ m²)</option>
+              </select>
+            </div>
+            <div class="wizard-nav">
+              <button type="button" class="btn btn-primary" id="nextStep1" data-i18n="contact.next">Weiter</button>
+            </div>
           </div>
-          <div class="field">
-            <label for="type" data-i18n="contact.type">Anfrage-Typ</label>
-            <select id="type" name="type">
-              <option value="private" data-i18n="contact.typePrivate">Privat</option>
-              <option value="business" data-i18n="contact.typeBusiness">Gewerblich</option>
-            </select>
+
+          <!-- Step 2: Components -->
+          <div class="step hidden" data-step="2">
+            <div class="field">
+              <label for="sensorsCount" data-i18n="contact.q.sensors">Anzahl Sensoren</label>
+              <input type="number" id="sensorsCount" name="sensorsCount" min="0" value="2">
+            </div>
+            <div class="field">
+              <label for="zonesCount" data-i18n="contact.q.zones">Anzahl Zonen</label>
+              <input type="number" id="zonesCount" name="zonesCount" min="1" value="1">
+            </div>
+            <div class="field">
+              <label style="font-weight:600; color: var(--brand-gray-700);" data-i18n="contact.q.components">Zusätzliche Komponenten</label>
+              <div style="display:flex; gap:16px; flex-wrap:wrap;">
+                <label style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="flow" name="flow"> <span data-i18n="contact.q.flow">Durchflusssensor</span></label>
+                <label style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="vent" name="vent"> <span data-i18n="contact.q.vent">Entlüftungspaket</span></label>
+                <label style="display:flex; align-items:center; gap:8px;"><input type="checkbox" id="gateway" name="gateway"> <span data-i18n="contact.q.gateway">Gateway</span></label>
+              </div>
+            </div>
+            <div class="wizard-nav">
+              <button type="button" class="btn btn-secondary" id="backStep2" data-i18n="contact.back">Zurück</button>
+              <button type="button" class="btn btn-primary" id="nextStep2" data-i18n="contact.next">Weiter</button>
+            </div>
           </div>
-          <div class="field hidden" id="projectSizeField">
-            <label for="projectSize" data-i18n="contact.projectSize">Projektgröße</label>
-            <select id="projectSize" name="projectSize">
-              <option value="small" data-i18n="contact.sizeSmall">Klein (bis 100 m²)</option>
-              <option value="medium" data-i18n="contact.sizeMedium">Mittel (100–500 m²)</option>
-              <option value="large" data-i18n="contact.sizeLarge">Groß (500+ m²)</option>
-            </select>
+
+          <!-- Step 3: Contact + Summary -->
+          <div class="step hidden" data-step="3">
+            <div class="field">
+              <div style="background: var(--brand-gray-100); padding:16px; border-radius: var(--radius-md);">
+                <div style="font-weight:700; margin-bottom:8px;" data-i18n="contact.offer">Dein Angebot</div>
+                <div><strong data-i18n="contact.offer.total">Geschätzter Gesamtpreis</strong>: <span id="offerTotal">–</span></div>
+                <div id="offerBreakdown" style="color: var(--brand-gray-700); margin-top:8px; white-space:pre-line;"></div>
+                <div style="font-size:12px; color: var(--brand-gray-600); margin-top:8px;" data-i18n="contact.offer.note">Unverbindliche Schätzung auf Basis deiner Angaben.</div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="name" data-i18n="contact.name">Name</label>
+              <input type="text" id="name" name="name" required placeholder="Max Mustermann" data-i18n-placeholder="contact.namePlaceholder">
+            </div>
+            <div class="field">
+              <label for="email" data-i18n="contact.email">E-Mail</label>
+              <input type="email" id="email" name="email" required placeholder="max@example.com" data-i18n-placeholder="contact.emailPlaceholder">
+            </div>
+            <div class="field">
+              <label for="message" data-i18n="contact.message">Nachricht</label>
+              <textarea id="message" name="message" required placeholder="Wie können wir helfen?" data-i18n-placeholder="contact.messagePlaceholder"></textarea>
+            </div>
+            <div class="consent">
+              <input type="checkbox" id="consent" required>
+              <label for="consent" data-i18n="contact.consent">Ich stimme der Datenschutzerklärung zu.</label>
+            </div>
+            <div class="wizard-nav">
+              <button type="button" class="btn btn-secondary" id="backStep3" data-i18n="contact.back">Zurück</button>
+              <button type="submit" class="btn btn-primary" data-i18n="contact.submit">Senden</button>
+            </div>
           </div>
-          <div class="field">
-            <label for="message" data-i18n="contact.message">Nachricht</label>
-            <textarea id="message" name="message" required placeholder="Wie können wir helfen?" data-i18n-placeholder="contact.messagePlaceholder"></textarea>
-          </div>
-          <div class="consent">
-            <input type="checkbox" id="consent" required>
-            <label for="consent" data-i18n="contact.consent">Ich stimme der Datenschutzerklärung zu.</label>
-          </div>
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary" data-i18n="contact.submit">Senden</button>
-          </div>
+
           <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
         </form>
         <aside class="panel" aria-label="Kontakt-Informationen">
@@ -2392,6 +2892,18 @@
           'contact.messagePlaceholder': 'Wie können wir helfen?',
           'contact.consent': 'Ich stimme der Datenschutzerklärung zu.',
           'contact.submit': 'Senden',
+          'contact.next': 'Weiter',
+          'contact.back': 'Zurück',
+          'contact.q.sensors': 'Anzahl Sensoren',
+          'contact.q.zones': 'Anzahl Zonen',
+          'contact.q.components': 'Zusätzliche Komponenten',
+          'contact.q.flow': 'Durchflusssensor',
+          'contact.q.vent': 'Entlüftungspaket',
+          'contact.q.gateway': 'Gateway',
+          'contact.offer': 'Dein Angebot',
+          'contact.offer.total': 'Geschätzter Gesamtpreis',
+          'contact.offer.note': 'Unverbindliche Schätzung auf Basis deiner Angaben.',
+          'contact.reset': 'Von vorne beginnen',
           'contact.aside.title': 'So erreichst du uns',
           'contact.aside.copy': 'Für Projektanfragen, Partnerschaften und Support – wir sind gerne für dich da.',
           'contact.aside.c1': 'DSGVO-konform',
@@ -2529,6 +3041,18 @@
           'contact.messagePlaceholder': 'How can we help?',
           'contact.consent': 'I agree to the privacy policy.',
           'contact.submit': 'Send',
+          'contact.next': 'Next',
+          'contact.back': 'Back',
+          'contact.q.sensors': 'Number of sensors',
+          'contact.q.zones': 'Number of zones',
+          'contact.q.components': 'Additional components',
+          'contact.q.flow': 'Flow sensor',
+          'contact.q.vent': 'Vent package',
+          'contact.q.gateway': 'Gateway',
+          'contact.offer': 'Your offer',
+          'contact.offer.total': 'Estimated total',
+          'contact.offer.note': 'Non-binding estimate based on your inputs.',
+          'contact.reset': 'Start over',
           'contact.aside.title': 'How to reach us',
           'contact.aside.copy': 'For project inquiries, partnerships and support – we\'re here for you.',
           'contact.aside.c1': 'GDPR-compliant',
@@ -2588,10 +3112,11 @@
         window.history.replaceState({}, '', url);
       });
 
-      // Smooth scroll
+      // Smooth scroll (disabled for audience toggle buttons)
       document.querySelectorAll('[data-scroll], .top-nav a').forEach(a => {
         a.addEventListener('click', (e) => {
           const href = a.getAttribute('href');
+          if (a.hasAttribute('data-aud-toggle')) return; // let audience toggle handle itself
           if (href && href.startsWith('#')) {
             e.preventDefault();
             const target = document.querySelector(href);
@@ -2599,6 +3124,58 @@
           }
         });
       });
+
+      // Audience mode
+      const AUD_KEY = 'audience'; // 'pro' or 'b2c'
+      const heroPro = document.querySelector('[data-aud-toggle="pro"]');
+      const heroB2c = document.querySelector('[data-aud-toggle="b2c"]');
+      const audiencePanel = document.getElementById('audiencePanel');
+      function setAudience(aud) {
+        const next = (aud === 'pro' || aud === 'b2c') ? aud : 'b2c';
+        document.body.classList.toggle('mode-pro', next === 'pro');
+        document.body.classList.toggle('mode-b2c', next === 'b2c');
+        // Visual active state on hero buttons
+        if (heroPro && heroB2c) {
+          heroPro.classList.toggle('active', next === 'pro');
+          heroB2c.classList.toggle('active', next === 'b2c');
+        }
+        // Toggle audience panel cards
+        if (audiencePanel) {
+          audiencePanel.querySelectorAll('[data-aud]').forEach(card => {
+            card.classList.toggle('hidden', card.getAttribute('data-aud') !== next);
+          });
+        }
+        // Show all products in both modes (no filtering)
+        const productGrid = document.getElementById('productGrid');
+        if (productGrid) {
+          productGrid.querySelectorAll('.card').forEach(card => {
+            card.removeAttribute('data-aud-hidden');
+          });
+        }
+        // Update products title subtly per mode
+        const productsTitle = document.getElementById('products-title');
+        if (productsTitle) {
+          productsTitle.textContent = (html.lang === 'en')
+            ? (next === 'pro' ? 'Products • Professional' : 'Products • Home & Garden')
+            : (next === 'pro' ? 'Produkte • Profi' : 'Produkte • Privat');
+        }
+        // Persist to URL and storage
+        localStorage.setItem(AUD_KEY, next);
+        const url = new URL(window.location);
+        url.searchParams.set('aud', next);
+        window.history.replaceState({}, '', url);
+      }
+      // Initialize audience mode from URL > storage > default
+      (function initAudience(){
+        const params = new URLSearchParams(window.location.search);
+        const urlAud = params.get('aud');
+        const storedAud = localStorage.getItem(AUD_KEY);
+        const initialAud = (urlAud === 'pro' || urlAud === 'b2c') ? urlAud : (storedAud || 'b2c');
+        setAudience(initialAud);
+      })();
+      // Wire hero buttons
+      if (heroPro) heroPro.addEventListener('click', (e) => { e.preventDefault(); setAudience('pro'); });
+      if (heroB2c) heroB2c.addEventListener('click', (e) => { e.preventDefault(); setAudience('b2c'); });
 
       // Reduced motion handling
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -2752,11 +3329,21 @@
         reduce.addEventListener('change', () => { if (reduce.matches) setPaused(true); });
       }
 
-      // Contact form behavior
-      const typeSel = document.getElementById('type');
-      const sizeField = document.getElementById('projectSizeField');
+      // Contact form: multi-step wizard + pricing
       const form = document.getElementById('contactForm');
       const status = document.getElementById('formStatus');
+      const stepEls = Array.from(form.querySelectorAll('.step'));
+      const wizardStepLabel = document.getElementById('wizardStepLabel');
+      const typeSel = document.getElementById('type');
+      const sizeField = document.getElementById('projectSizeField');
+      const sensorsInput = document.getElementById('sensorsCount');
+      const zonesInput = document.getElementById('zonesCount');
+      const flowInput = document.getElementById('flow');
+      const ventInput = document.getElementById('vent');
+      const gatewayInput = document.getElementById('gateway');
+      const offerTotalEl = document.getElementById('offerTotal');
+      const offerBreakdownEl = document.getElementById('offerBreakdown');
+
       function updateFormByType() {
         const isBusiness = typeSel.value === 'business';
         sizeField.classList.toggle('hidden', !isBusiness);
@@ -2764,27 +3351,132 @@
       typeSel.addEventListener('change', updateFormByType);
       updateFormByType();
 
-      form.addEventListener('submit', (e) => {
+      let currentStep = 1;
+      function setStep(step) {
+        currentStep = step;
+        stepEls.forEach(el => el.classList.toggle('hidden', Number(el.dataset.step) !== currentStep));
+        const totalSteps = stepEls.length;
+        const labels = {
+          de: ['Grundlagen', 'Komponenten', 'Kontakt & Angebot'],
+          en: ['Basics', 'Components', 'Contact & Offer']
+        };
+        const langKey = (html.lang === 'en') ? 'en' : 'de';
+        const stepLabelText = document.getElementById('stepLabelText');
+        stepLabelText.textContent = `${labels[langKey][currentStep - 1]} (${currentStep}/${totalSteps})`;
+      }
+
+      function resetWizard() {
+        form.reset();
+        updateFormByType();
+        setStep(1);
+        offerTotalEl.textContent = '–';
+        offerBreakdownEl.textContent = '';
+        status.textContent = '';
+      }
+
+      function formatCurrency(amount) {
+        return new Intl.NumberFormat(html.lang === 'en' ? 'en-US' : 'de-DE', { style: 'currency', currency: 'EUR' }).format(amount);
+      }
+
+      function computeOffer() {
+        const isBusiness = typeSel.value === 'business';
+        const sensors = Math.max(0, parseInt(sensorsInput.value || '0', 10));
+        const zones = Math.max(1, parseInt(zonesInput.value || '1', 10));
+        const hasFlow = !!flowInput.checked;
+        const hasVent = !!ventInput.checked;
+        const hasGateway = !!gatewayInput.checked;
+
+        // Simple pricing model (dummy):
+        const base = isBusiness ? 290 : 190; // setup
+        const perSensor = isBusiness ? 120 : 99;
+        const perZone = 80;
+        const flow = hasFlow ? 149 : 0;
+        const vent = hasVent ? 99 : 0;
+        const gateway = hasGateway ? 199 : 0;
+
+        const subtotal = base + sensors * perSensor + zones * perZone + flow + vent + gateway;
+        const discount = (isBusiness && sensors >= 10) ? subtotal * 0.08 : 0; // small bulk discount
+        const total = Math.max(0, Math.round((subtotal - discount) * 100) / 100);
+
+        const breakdownLines = [
+          `${html.lang === 'en' ? 'Base setup' : 'Basis-Setup'}: ${formatCurrency(base)}`,
+          `${html.lang === 'en' ? 'Sensors' : 'Sensoren'} (${sensors} × ${formatCurrency(perSensor)}): ${formatCurrency(sensors * perSensor)}`,
+          `${html.lang === 'en' ? 'Zones' : 'Zonen'} (${zones} × ${formatCurrency(perZone)}): ${formatCurrency(zones * perZone)}`,
+          hasFlow ? `${html.lang === 'en' ? 'Flow sensor' : 'Durchflusssensor'}: ${formatCurrency(flow)}` : '',
+          hasVent ? `${html.lang === 'en' ? 'Vent package' : 'Entlüftungspaket'}: ${formatCurrency(vent)}` : '',
+          hasGateway ? `${html.lang === 'en' ? 'Gateway' : 'Gateway'}: ${formatCurrency(gateway)}` : '',
+          discount ? `${html.lang === 'en' ? 'Business discount' : 'Gewerbe-Rabatt'}: -${formatCurrency(discount)}` : ''
+        ].filter(Boolean).join('\n');
+
+        offerTotalEl.textContent = formatCurrency(total);
+        offerBreakdownEl.textContent = breakdownLines;
+
+        return { total, breakdownLines };
+      }
+
+      function attachRecalc() {
+        [typeSel, sensorsInput, zonesInput, flowInput, ventInput, gatewayInput].forEach(el => {
+          el && el.addEventListener('input', () => {
+            updateFormByType();
+            computeOffer();
+          });
+          el && el.addEventListener('change', () => {
+            updateFormByType();
+            computeOffer();
+          });
+        });
+      }
+      attachRecalc();
+
+      // Wizard navigation
+      const next1 = document.getElementById('nextStep1');
+      const next2 = document.getElementById('nextStep2');
+      const back2 = document.getElementById('backStep2');
+      const back3 = document.getElementById('backStep3');
+      const resetBtn = document.getElementById('resetWizard');
+
+      next1.addEventListener('click', () => { setStep(2); });
+      back2.addEventListener('click', () => { setStep(1); });
+      next2.addEventListener('click', () => { computeOffer(); setStep(3); });
+      back3.addEventListener('click', () => { setStep(2); });
+      resetBtn.addEventListener('click', resetWizard);
+
+      // Init step 1
+      setStep(1);
+
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
         status.textContent = '';
-        // honeypot check
         const honey = (document.getElementById('website') || {}).value || '';
-        if (honey.trim() !== '') {
-          return; // silently drop spam
-        }
-        const valid = form.checkValidity();
-        if (!valid) {
+        if (honey.trim() !== '') return;
+
+        // Validate only visible inputs at final step
+        const visibleRequired = Array.from(form.querySelectorAll('[required]')).filter(el => el.closest('.step')?.classList.contains('hidden') === false || !el.closest('.step'));
+        const allValid = visibleRequired.every(el => el.checkValidity());
+        if (!allValid) {
           status.style.color = '#b00020';
           status.textContent = html.lang === 'en' ? 'Please complete all required fields and consent.' : 'Bitte fülle alle Pflichtfelder aus und stimme zu.';
           form.reportValidity();
           return;
         }
-        const data = Object.fromEntries(new FormData(form).entries());
-        console.log('Form submit', data);
-        status.style.color = 'var(--brand-green-600)';
-        status.textContent = html.lang === 'en' ? 'Thank you! We will get back to you shortly.' : 'Danke! Wir melden uns zeitnah bei dir.';
-        form.reset();
-        updateFormByType();
+
+        const offer = computeOffer();
+        const payload = Object.fromEntries(new FormData(form).entries());
+        payload.offerTotal = offer.total;
+        payload.offerBreakdown = offer.breakdownLines;
+        payload.lang = html.lang;
+
+        // Dummy submission (no backend). Simulate latency and log payload
+        try {
+          await new Promise(r => setTimeout(r, 600));
+          console.log('Contact payload (dummy send):', payload);
+          status.style.color = 'var(--brand-green-600)';
+          status.textContent = html.lang === 'en' ? 'Thank you! Your request and offer were sent.' : 'Danke! Deine Anfrage inkl. Angebot wurde gesendet.';
+          resetWizard();
+        } catch (err) {
+          status.style.color = '#b00020';
+          status.textContent = html.lang === 'en' ? 'Something went wrong. Please try again.' : 'Etwas ist schiefgelaufen. Bitte versuche es erneut.';
+        }
       });
     })();
   </script>
