@@ -2864,3 +2864,55 @@
       min-width: 80px;
       justify-content: center;
     }
+
+    /* Vision section enhancements (overrides) */
+    .vision-video-section {
+      background: radial-gradient(800px 600px at 15% 0%, color-mix(in srgb, var(--brand-green-600) 6%, transparent), transparent),
+                  radial-gradient(600px 800px at 85% 100%, color-mix(in srgb, var(--brand-green-500) 5%, transparent), transparent),
+                  linear-gradient(135deg, var(--brand-white), var(--brand-green-100));
+      box-shadow: 0 20px 50px rgba(34, 197, 94, 0.12);
+    }
+
+    .vision-video {
+      box-shadow: 0 12px 36px rgba(37,153,99,0.18);
+    }
+
+    .vision-accent .section-head h2 {
+      background: linear-gradient(135deg, var(--brand-dark), var(--brand-green-700));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .vision-badge {
+      margin-top: 10px;
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, var(--brand-green-100), var(--brand-green-200));
+      color: var(--brand-green-700);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.6px;
+      border: 1px solid var(--brand-green-300);
+      box-shadow: 0 4px 14px rgba(37,153,99,0.18);
+    }
+
+    .vision-cta { margin-top: 16px; }
+
+    .video-glow {
+      position: absolute;
+      inset: -12px;
+      border-radius: calc(var(--radius-lg) + 12px);
+      background: radial-gradient(600px 300px at 50% 0%, rgba(37,153,99,0.25), transparent 60%),
+                  radial-gradient(400px 200px at 50% 100%, rgba(34,197,94,0.2), transparent 60%);
+      filter: blur(10px);
+      opacity: 0.7;
+      pointer-events: none;
+      animation: visionPulse 6s ease-in-out infinite;
+    }
+
+    @keyframes visionPulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(1.02); }
+    }
