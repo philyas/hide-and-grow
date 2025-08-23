@@ -873,11 +873,29 @@
             <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
           </div>
 
-          <div class="field" aria-live="polite" id="wizardStepLabel" style="font-weight:700; color: var(--brand-gray-700);">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <span id="stepLabelText"></span>
-              <button type="button" id="resetWizard" class="btn btn-secondary" style="font-size:12px; padding:8px 16px; min-width:auto;" data-i18n="contact.reset">Von vorne beginnen</button>
+          <!-- Progress Indicator -->
+          <div class="progress-indicator" aria-label="Formular-Fortschritt">
+            <div class="progress-steps">
+              <div class="progress-step active" data-step="1">
+                <div class="progress-dot"></div>
+                <span class="progress-label" data-i18n="contact.progress.step1">Anfrage</span>
+              </div>
+              <div class="progress-step" data-step="2">
+                <div class="progress-dot"></div>
+                <span class="progress-label" data-i18n="contact.progress.step2">Komponenten</span>
+              </div>
+              <div class="progress-step" data-step="3">
+                <div class="progress-dot"></div>
+                <span class="progress-label" data-i18n="contact.progress.step3">Kontakt</span>
+              </div>
+            </div>
+            <div class="progress-line">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
           </div>
+
+          <div class="field" aria-live="polite" id="wizardStepLabel" style="font-weight:700; color: var(--brand-gray-700);">
+            <span id="stepLabelText"></span>
           </div>
 
           <!-- Step 1: Basics -->

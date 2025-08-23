@@ -27,20 +27,45 @@
   function setStep(step) {
     currentStep = step;
     stepEls.forEach(el => el.classList.toggle('hidden', Number(el.dataset.step) !== currentStep));
-    const totalSteps = stepEls.length;
-                         const labels = {
+    
+    // Update progress indicator
+    updateProgressIndicator(step);
+    
+    const labels = {
            de: ['Anfrage', 'Komponenten', 'Kontakt & Angebot'],
            en: ['Request', 'Components', 'Contact & Offer']
          };
     const langKey = (html.lang === 'en') ? 'en' : 'de';
     const stepLabelText = document.getElementById('stepLabelText');
-    stepLabelText.textContent = `${labels[langKey][currentStep - 1]} (${currentStep}/${totalSteps})`;
+    stepLabelText.textContent = labels[langKey][currentStep - 1];
+  }
+
+  function updateProgressIndicator(step) {
+    const progressSteps = document.querySelectorAll('.progress-step');
+    const progressFill = document.getElementById('progressFill');
+    
+    // Update step classes
+    progressSteps.forEach((stepEl, index) => {
+      const stepNumber = index + 1;
+      stepEl.classList.remove('active', 'completed');
+      
+      if (stepNumber === step) {
+        stepEl.classList.add('active');
+      } else if (stepNumber < step) {
+        stepEl.classList.add('completed');
+      }
+    });
+    
+    // Update progress fill
+    const progressPercentage = ((step - 1) / (progressSteps.length - 1)) * 100;
+    progressFill.style.width = `${progressPercentage}%`;
   }
 
   function resetWizard() {
     form.reset();
     updateFormByType();
     setStep(1);
+    updateProgressIndicator(1);
     offerTotalEl.textContent = '–';
     offerBreakdownEl.textContent = '';
     status.textContent = '';
@@ -98,17 +123,28 @@
   }
   attachRecalc();
 
+  // Add click functionality to progress steps
+  document.querySelectorAll('.progress-step').forEach(stepEl => {
+    stepEl.addEventListener('click', () => {
+      const stepNumber = parseInt(stepEl.dataset.step);
+      if (stepNumber && stepNumber !== currentStep) {
+        // Only allow navigation to completed steps or next step
+        if (stepNumber <= currentStep + 1) {
+          setStep(stepNumber);
+        }
+      }
+    });
+  });
+
   const next1 = document.getElementById('nextStep1');
   const next2 = document.getElementById('nextStep2');
   const back2 = document.getElementById('backStep2');
   const back3 = document.getElementById('backStep3');
-  const resetBtn = document.getElementById('resetWizard');
 
   next1.addEventListener('click', () => { setStep(2); });
   back2.addEventListener('click', () => { setStep(1); });
   next2.addEventListener('click', () => { computeOffer(); setStep(3); });
   back3.addEventListener('click', () => { setStep(2); });
-  resetBtn.addEventListener('click', resetWizard);
 
   setStep(1);
 
@@ -185,6 +221,9 @@
   
   // Initialize button states
   ['sensorsCount', 'zonesCount'].forEach(id => updateButtonStates(id));
+  
+  // Initialize progress indicator
+  updateProgressIndicator(1);
 })();
 
 

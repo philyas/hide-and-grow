@@ -3484,3 +3484,137 @@
     .app-toast.ok { background: linear-gradient(135deg, var(--brand-green-600), var(--brand-green-500)); }
     .app-toast.err { background: #b00020; }
     .app-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* Contact Form */
+    .contact-grid {
+      display: grid;
+      gap: 48px;
+      grid-template-columns: 1fr 320px;
+    }
+    
+    /* Progress Indicator */
+    .progress-indicator {
+      margin-bottom: 32px;
+      position: relative;
+    }
+    
+    .progress-steps {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .progress-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      transition: all var(--anim-med);
+      cursor: pointer;
+    }
+    
+    .progress-step:hover .progress-dot {
+      transform: scale(1.1);
+      box-shadow: 0 0 0 3px var(--brand-gray-100);
+    }
+    
+    .progress-step.active:hover .progress-dot {
+      transform: scale(1.3);
+      box-shadow: 0 0 0 3px var(--brand-green-100);
+    }
+    
+    .progress-step.completed:hover .progress-dot {
+      transform: scale(1.1);
+      box-shadow: 0 0 0 3px var(--brand-green-100);
+    }
+    
+    .progress-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--brand-gray-200);
+      border: 3px solid var(--brand-white);
+      box-shadow: 0 0 0 2px var(--brand-gray-200);
+      transition: all var(--anim-med);
+      position: relative;
+      z-index: 3;
+    }
+    
+    .progress-step.active .progress-dot {
+      background: var(--brand-green-600);
+      box-shadow: 0 0 0 2px var(--brand-green-600);
+      transform: scale(1.2);
+    }
+    
+    .progress-step.completed .progress-dot {
+      background: var(--brand-green-500);
+      box-shadow: 0 0 0 2px var(--brand-green-500);
+    }
+    
+    .progress-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--brand-gray-500);
+      text-align: center;
+      transition: color var(--anim-med);
+      white-space: nowrap;
+    }
+    
+    .progress-step.active .progress-label {
+      color: var(--brand-green-700);
+      font-weight: 700;
+    }
+    
+    .progress-step.completed .progress-label {
+      color: var(--brand-green-600);
+    }
+    
+    .progress-line {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      height: 2px;
+      background: var(--brand-gray-200);
+      border-radius: 1px;
+      z-index: 1;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: var(--brand-green-500);
+      border-radius: 1px;
+      transition: width var(--anim-med) ease;
+      width: 0%;
+    }
+    
+    /* Mobile responsive progress indicator */
+    @media (max-width: 767px) {
+      .progress-steps {
+        gap: 8px;
+      }
+      
+      .progress-label {
+        font-size: 12px;
+      }
+      
+      .progress-dot {
+        width: 14px;
+        height: 14px;
+      }
+    }
+    
+    @media (max-width: 479px) {
+      .progress-label {
+        display: none;
+      }
+      
+      .progress-steps {
+        justify-content: center;
+        gap: 24px;
+      }
+    }
