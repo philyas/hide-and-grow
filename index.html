@@ -1365,22 +1365,22 @@
      
      /* Interactive Irrigation Plan */
      .irrigation-section .section-head { align-items: center; }
-         .irrigation {
+     .irrigation {
       --pipe-color: #8a9a8f;
       --flow-color: #4da6ff;
-      --node-color: #1d7f4e;
-      --bed-color: #a9d8bd;
-      --spray-color: #79d4a4;
-      --bg: var(--brand-white);
-      --flow-speed: 1; /* 0.5x–3x via slider */
-      background: var(--bg);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--brand-gray-200);
-      box-shadow: var(--shadow-soft);
-      padding: 16px;
-      display: grid;
-      gap: 12px;
-    }
+       --node-color: #1d7f4e;
+       --bed-color: #a9d8bd;
+       --spray-color: #79d4a4;
+       --bg: var(--brand-white);
+       --flow-speed: 1; /* 0.5x–3x via slider */
+       background: var(--bg);
+       border-radius: var(--radius-lg);
+       border: 1px solid var(--brand-gray-200);
+       box-shadow: var(--shadow-soft);
+       padding: 16px;
+       display: grid;
+       gap: 12px;
+     }
      .irrigation-ui {
        display: grid;
        grid-template-columns: 1fr auto auto auto auto;
@@ -1390,6 +1390,12 @@
        border-radius: var(--radius-md);
        border: 1px solid var(--brand-gray-200);
        background: linear-gradient(180deg, var(--brand-white), var(--brand-gray-100));
+     }
+     .irrigation-ui [role="group"][aria-label="Zonen"] {
+       display: inline-flex;
+       flex-wrap: nowrap;
+       gap: 12px;
+       align-items: center;
      }
      @media (max-width: 900px) { .irrigation-ui { grid-template-columns: 1fr; } }
      .irrigation-ui .btn { padding: 10px 14px; }
@@ -1619,13 +1625,13 @@
      .valve { fill: #5f6b64; }
      .bed { fill: color-mix(in srgb, var(--bed-color) 40%, transparent); stroke: color-mix(in srgb, var(--bed-color) 80%, var(--brand-gray-300)); stroke-width: 2; }
      .label { font: 600 14px/1 "Helvetica Neue", Arial, sans-serif; fill: var(--brand-gray-700); }
-         .zone-muted { opacity: 0.28; }
+     .zone-muted { opacity: 0.28; }
     .paused .flow, .paused .spray { animation-play-state: paused !important; }
     .overlay-img { 
       opacity: 0; 
       transition: opacity var(--anim-med); 
     }
-    .show-overlay .overlay-img { opacity: 0.65; }
+     .show-overlay .overlay-img { opacity: 0.65; }
      @keyframes flow { to { stroke-dashoffset: -32; } }
      @keyframes spray { 0%, 100% { opacity: 0.1; } 50% { opacity: 0.9; } }
 
@@ -1968,6 +1974,95 @@
       50% { transform: translate(-50%, -50%) rotate(45deg) scale(1.2); }
       100% { transform: translate(-50%, -50%) rotate(45deg) scale(1); }
     }
+
+    /* Modern CTA Button Styling */
+    .cta-offer {
+      background: linear-gradient(135deg, var(--brand-green-500), var(--brand-green-600));
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: var(--radius-lg);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(37, 153, 99, 0.3);
+    }
+
+    .cta-offer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.6s;
+    }
+
+    .cta-offer:hover::before {
+      left: 100%;
+    }
+
+    .cta-offer:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(37, 153, 99, 0.4);
+      background: linear-gradient(135deg, var(--brand-green-600), var(--brand-green-700));
+    }
+
+    .cta-offer:active {
+      transform: translateY(-1px);
+    }
+
+    .cta-offer svg {
+      transition: transform 0.3s ease;
+    }
+
+    .cta-offer:hover svg {
+      transform: scale(1.1) rotate(15deg);
+    }
+
+    /* CTA Button Container Styling */
+    .benefit-cta, .story-cta, .reference-cta {
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    .benefit-cta .cta-offer {
+      font-size: 13px;
+      padding: 10px 20px;
+    }
+
+    .story-cta .cta-offer {
+      font-size: 13px;
+      padding: 10px 20px;
+    }
+
+    .reference-cta .cta-offer {
+      font-size: 12px;
+      padding: 8px 16px;
+    }
+
+    /* Enhanced hover-info for product cards */
+    .hover-info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: end;
+      padding: 16px;
+    }
+
+    .hover-info .cta-offer {
+      font-size: 12px;
+      padding: 8px 16px;
+      min-width: 80px;
+      justify-content: center;
+    }
   </style>
 </head>
 <body>
@@ -2225,124 +2320,178 @@
       </div>
     </section>
 
-         <!-- Interactive Irrigation Plan -->
-     <section class="section container reveal irrigation-section" aria-labelledby="irrigation-title">
-       <div class="section-head">
-         <h2 id="irrigation-title" data-i18n="irrig.title">Interaktiver Bewässerungsplan</h2>
+    <!-- Interactive Irrigation Plan -->
+    <section class="section container reveal irrigation-section" aria-labelledby="irrigation-title">
+      <div class="section-head">
+        <h2 id="irrigation-title" data-i18n="irrig.title">Interaktiver Bewässerungsplan</h2>
          <p class="lead" data-i18n="irrig.lead">Live-Animation des Wasserflusses – steuerbare Zonen, Tempo und Blueprint-Overlay.</p>
-       </div>
-       <div id="irrigation" class="irrigation">
-         <div class="irrigation-ui">
-           <div class="group">
-             <button id="playPause" class="btn btn-primary" aria-pressed="true" data-i18n="irrig.pause">Pause</button>
-             <span class="toggle">
-               <label for="speed" data-i18n="irrig.speed">Geschwindigkeit</label>
-               <input id="speed" type="range" min="0.5" max="3" step="0.1" value="1" aria-valuemin="0.5" aria-valuemax="3" aria-valuenow="1">
-             </span>
-           </div>
-           <div class="group" role="group" aria-label="Zonen">
-             <label class="toggle"><input id="zoneA" type="checkbox" checked> <span data-i18n="irrig.zoneA">Zone A (Beete)</span></label>
-             <label class="toggle"><input id="zoneB" type="checkbox" checked> <span data-i18n="irrig.zoneB">Zone B (Rasen)</span></label>
-           </div>
-           <div class="group">
-             <label class="toggle"><input id="overlay" type="checkbox"> <span data-i18n="irrig.overlay">Blueprint-Overlay</span></label>
-           </div>
-         </div>
-         <div class="irrigation-svg">
-           <svg viewBox="0 0 1000 600" role="img" aria-label="Interaktiver Bewässerungsplan">
-             <defs>
-               <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
-                 <feGaussianBlur stdDeviation="3" result="blur"/>
-                 <feMerge>
-                   <feMergeNode in="blur"/>
-                   <feMergeNode in="SourceGraphic"/>
-                 </feMerge>
-               </filter>
-               <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
-                 <path d="M0,0 L8,4 L0,8 Z" fill="currentColor"></path>
-               </marker>
-               <linearGradient id="srcGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                 <stop offset="0%" stop-color="#e9f6f0"/>
-                 <stop offset="100%" stop-color="#cfeadd"/>
-               </linearGradient>
-             </defs>
+      </div>
+      <div id="irrigation" class="irrigation">
+        <div class="irrigation-ui">
+          <div class="group">
+            <button id="playPause" class="btn btn-primary" aria-pressed="true" data-i18n="irrig.pause">Pause</button>
+            <span class="toggle">
+              <label for="speed" data-i18n="irrig.speed">Geschwindigkeit</label>
+              <input id="speed" type="range" min="0.5" max="3" step="0.1" value="1" aria-valuemin="0.5" aria-valuemax="3" aria-valuenow="1">
+            </span>
+          </div>
+          <div class="group" role="group" aria-label="Zonen">
+            <label class="toggle"><input id="zoneA" type="checkbox" checked> <span data-i18n="irrig.zoneA">Zone A (Beete)</span></label>
+            <label class="toggle"><input id="zoneB" type="checkbox" checked> <span data-i18n="irrig.zoneB">Zone B (Rasen)</span></label>
+             <label class="toggle"><input id="zoneC" type="checkbox" checked> <span data-i18n="irrig.zoneC">Zone C (Beete kompakt)</span></label>
+             <label class="toggle"><input id="zoneD" type="checkbox" checked> <span data-i18n="irrig.zoneD">Zone D (Rasen kompakt)</span></label>
+          </div>
+          <div class="group">
+            <label class="toggle"><input id="overlay" type="checkbox"> <span data-i18n="irrig.overlay">Blueprint-Overlay</span></label>
+          </div>
+        </div>
+        <div class="irrigation-svg">
+          <svg viewBox="0 0 1000 600" role="img" aria-label="Interaktiver Bewässerungsplan">
+            <defs>
+              <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="3" result="blur"/>
+                <feMerge>
+                  <feMergeNode in="blur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+              <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 Z" fill="currentColor"></path>
+              </marker>
+              <linearGradient id="srcGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#e9f6f0"/>
+                <stop offset="100%" stop-color="#cfeadd"/>
+              </linearGradient>
+            </defs>
 
-             <!-- Optional background overlay image from user-provided diagram -->
-             <image class="overlay-img" href="https://clearpond.com.au/wp-content/uploads/2025/02/pond-sensor-diagram.jpg" x="0" y="0" width="1000" height="600" preserveAspectRatio="xMidYMid slice" />
+            <!-- Optional background overlay image from user-provided diagram -->
+             <image class="overlay-img" href="https://thumbs.dreamstime.com/b/bird-s-eye-view-square-garden-design-ai-bird-s-eye-view-square-garden-design-ai-280861340.jpg" x="0" y="0" width="1000" height="600" preserveAspectRatio="xMidYMid slice" />
 
-             <!-- Beds / Lawn areas -->
-             <g aria-label="Flächen">
-               <rect class="bed" x="620" y="80" width="320" height="150" rx="10" />
-               <rect class="bed" x="620" y="370" width="320" height="140" rx="10" />
-               <text class="label" x="630" y="110">Beet A</text>
-               <text class="label" x="630" y="400">Rasen B</text>
-             </g>
+            <!-- Beds / Lawn areas -->
+            <g aria-label="Flächen">
+              <rect class="bed" x="620" y="80" width="320" height="150" rx="10" />
+              <rect class="bed" x="620" y="370" width="320" height="140" rx="10" />
+              <text class="label" x="630" y="110">Beet A</text>
+              <text class="label" x="630" y="400">Rasen B</text>
+            </g>
 
-             <!-- Source / Pump / Filter cluster -->
-             <g aria-label="Quelle" id="source">
-               <rect x="40" y="260" width="140" height="80" rx="10" fill="url(#srcGrad)" stroke="#9fb3aa" stroke-width="2"/>
-               <text class="label" x="50" y="255">Wasserquelle</text>
-               <circle class="node valve" cx="110" cy="300" r="10"><title>Ventil</title></circle>
-               <circle class="node" cx="160" cy="300" r="10"><title>Pumpe</title></circle>
-               <circle class="node sensor" cx="200" cy="300" r="10"><title>Durchflusssensor</title></circle>
-             </g>
+            <!-- Source / Pump / Filter cluster -->
+            <g aria-label="Quelle" id="source">
+              <rect x="40" y="260" width="140" height="80" rx="10" fill="url(#srcGrad)" stroke="#9fb3aa" stroke-width="2"/>
+              <text class="label" x="50" y="255">Wasserquelle</text>
+              <circle class="node valve" cx="110" cy="300" r="10"><title>Ventil</title></circle>
+              <circle class="node" cx="160" cy="300" r="10"><title>Pumpe</title></circle>
+              <circle class="node sensor" cx="200" cy="300" r="10"><title>Durchflusssensor</title></circle>
+            </g>
 
-             <!-- Main line -->
-             <g id="main">
-               <path id="pipe-main" class="pipe" d="M 210 300 H 850"/>
-               <path class="flow" d="M 210 300 H 850"/>
-             </g>
+            <!-- Main line -->
+            <g id="main">
+              <path id="pipe-main" class="pipe" d="M 210 300 H 850"/>
+              <path class="flow" d="M 210 300 H 850"/>
+               <path class="flow" d="M 210 303 H 850"/>
+               <path class="flow" d="M 210 297 H 850"/>
+            </g>
 
-             <!-- Branch to Zone A (Beds) -->
-             <g id="zoneAGroup" data-zone="A">
-               <path class="pipe" d="M 420 300 V 160 H 930"/>
-               <path class="flow" d="M 420 300 V 160 H 930"/>
-               <!-- Sprinklers A -->
-               <g>
-                 <circle class="node" cx="720" cy="160" r="8"><title>Sprinkler A1</title></circle>
-                 <path class="spray" d="M 720 160 q 30 -20 60 0"/>
-                 <circle class="node" cx="860" cy="160" r="8"><title>Sprinkler A2</title></circle>
-                 <path class="spray" d="M 860 160 q 30 -20 60 0"/>
-               </g>
-               <!-- Droplet following Zone A path -->
+            <!-- Branch to Zone A (Beds) -->
+            <g id="zoneAGroup" data-zone="A">
+              <path class="pipe" d="M 420 300 V 160 H 930"/>
+              <path class="flow" d="M 420 300 V 160 H 930"/>
+               <path class="flow" d="M 423 300 V 160 H 930"/>
+               <path class="flow" d="M 417 300 V 160 H 930"/>
+              <!-- Sprinklers A -->
+              <g>
+                <circle class="node" cx="720" cy="160" r="8"><title>Sprinkler A1</title></circle>
+                <path class="spray" d="M 720 160 q 30 -20 60 0"/>
+                <circle class="node" cx="860" cy="160" r="8"><title>Sprinkler A2</title></circle>
+                <path class="spray" d="M 860 160 q 30 -20 60 0"/>
+              </g>
+              <!-- Droplet following Zone A path -->
                <g class="droplet" fill="#4da6ff" filter="url(#softGlow)">
-                 <circle r="6">
-                   <animateMotion dur="8s" repeatCount="indefinite" rotate="auto">
-                     <mpath href="#zoneAPathRef"/>
-                   </animateMotion>
-                 </circle>
-               </g>
-               <path id="zoneAPathRef" d="M 420 300 V 160 H 930" fill="none" stroke="none"/>
-             </g>
+                <circle r="6">
+                  <animateMotion dur="8s" repeatCount="indefinite" rotate="auto">
+                    <mpath href="#zoneAPathRef"/>
+                  </animateMotion>
+                </circle>
+              </g>
+              <path id="zoneAPathRef" d="M 420 300 V 160 H 930" fill="none" stroke="none"/>
+            </g>
 
-             <!-- Branch to Zone B (Lawn) -->
-             <g id="zoneBGroup" data-zone="B">
-               <path class="pipe" d="M 600 300 V 460 H 930"/>
-               <path class="flow" d="M 600 300 V 460 H 930"/>
-               <!-- Sprinklers B -->
-               <g>
-                 <circle class="node" cx="720" cy="460" r="8"><title>Sprinkler B1</title></circle>
-                 <path class="spray" d="M 720 460 q 30 -20 60 0"/>
-                 <circle class="node" cx="860" cy="460" r="8"><title>Sprinkler B2</title></circle>
-                 <path class="spray" d="M 860 460 q 30 -20 60 0"/>
-               </g>
-               <!-- Droplet following Zone B path -->
+            <!-- Branch to Zone B (Lawn) -->
+            <g id="zoneBGroup" data-zone="B">
+              <path class="pipe" d="M 600 300 V 460 H 930"/>
+              <path class="flow" d="M 600 300 V 460 H 930"/>
+               <path class="flow" d="M 603 300 V 460 H 930"/>
+               <path class="flow" d="M 597 300 V 460 H 930"/>
+              <!-- Sprinklers B -->
+              <g>
+                <circle class="node" cx="720" cy="460" r="8"><title>Sprinkler B1</title></circle>
+                <path class="spray" d="M 720 460 q 30 -20 60 0"/>
+                <circle class="node" cx="860" cy="460" r="8"><title>Sprinkler B2</title></circle>
+                <path class="spray" d="M 860 460 q 30 -20 60 0"/>
+              </g>
+              <!-- Droplet following Zone B path -->
                <g class="droplet" fill="#4da6ff" filter="url(#softGlow)">
-                 <circle r="6">
-                   <animateMotion dur="8s" repeatCount="indefinite" rotate="auto">
-                     <mpath href="#zoneBPathRef"/>
-                   </animateMotion>
-                 </circle>
-               </g>
-               <path id="zoneBPathRef" d="M 600 300 V 460 H 930" fill="none" stroke="none"/>
-             </g>
+                <circle r="6">
+                  <animateMotion dur="8s" repeatCount="indefinite" rotate="auto">
+                    <mpath href="#zoneBPathRef"/>
+                  </animateMotion>
+                </circle>
+              </g>
+              <path id="zoneBPathRef" d="M 600 300 V 460 H 930" fill="none" stroke="none"/>
+            </g>
 
-             <!-- Labels -->
-             <text class="label" x="300" y="285">Hauptleitung</text>
-           </svg>
-         </div>
-       </div>
-     </section>
+            <!-- Branch to Zone D (Compact Lawn, bottom-left) -->
+            <g id="zoneDGroup" data-zone="D">
+              <rect class="bed" x="80" y="430" width="260" height="120" rx="10" />
+              <text class="label" x="90" y="455">Rasen D</text>
+              <path class="pipe" d="M 210 300 V 430 H 340"/>
+              <path class="flow" d="M 210 300 V 430 H 340"/>
+              <path class="flow" d="M 213 300 V 430 H 340"/>
+              <g>
+                <circle class="node" cx="160" cy="490" r="8"><title>Sprinkler D1</title></circle>
+                <path class="spray" d="M 160 490 q 30 -20 60 0"/>
+                <circle class="node" cx="260" cy="490" r="8"><title>Sprinkler D2</title></circle>
+                <path class="spray" d="M 260 490 q 30 -20 60 0"/>
+              </g>
+              <g class="droplet" fill="#4da6ff" filter="url(#softGlow)">
+                <circle r="6">
+                  <animateMotion dur="8s" repeatCount="indefinite" rotate="auto">
+                    <mpath href="#zoneDPathRef"/>
+                  </animateMotion>
+                </circle>
+              </g>
+              <path id="zoneDPathRef" d="M 210 300 V 430 H 340" fill="none" stroke="none"/>
+            </g>
+
+            <!-- Branch to Zone C (Compact Beds, top-left) -->
+            <g id="zoneCGroup" data-zone="C">
+              <rect class="bed" x="80" y="80" width="260" height="120" rx="10" />
+              <text class="label" x="90" y="105">Beet C</text>
+              <path class="pipe" d="M 210 300 V 200 H 340"/>
+              <path class="flow" d="M 210 300 V 200 H 340"/>
+              <path class="flow" d="M 207 300 V 200 H 340"/>
+              <g>
+                <circle class="node" cx="160" cy="140" r="8"><title>Sprinkler C1</title></circle>
+                <path class="spray" d="M 160 140 q 30 -20 60 0"/>
+                <circle class="node" cx="260" cy="140" r="8"><title>Sprinkler C2</title></circle>
+                <path class="spray" d="M 260 140 q 30 -20 60 0"/>
+              </g>
+              <g class="droplet" fill="#4da6ff" filter="url(#softGlow)">
+                <circle r="6">
+                  <animateMotion dur="8s" repeatCount="indefinite" rotate="auto">
+                    <mpath href="#zoneCPathRef"/>
+                  </animateMotion>
+                </circle>
+              </g>
+              <path id="zoneCPathRef" d="M 210 300 V 200 H 340" fill="none" stroke="none"/>
+            </g>
+
+            <!-- Labels -->
+            <text class="label" x="300" y="285">Hauptleitung</text>
+          </svg>
+        </div>
+      </div>
+    </section>
 
      <!-- Section Transition: Products to Vision Video -->
      <div class="section-transition">
@@ -2384,7 +2533,7 @@
       </div>
     </div>
 
-    <!-- Vorteile der Gartenbewässerungsanlage -->
+        <!-- Vorteile der Gartenbewässerungsanlage -->
     <section class="section container reveal" aria-labelledby="benefits-title">
       <div class="section-head" style="text-align:center;flex-direction:column;gap:24px;margin-bottom:48px;align-items:center;justify-content:center;">
         <h2 id="benefits-title" data-i18n="benefits.title">Vorteile der Gartenbewässerung</h2>
@@ -2516,7 +2665,7 @@
                <h3 data-i18n="stories.s2.title">Kontakt auf Augenhöhe</h3>
                <p data-i18n="stories.s2.copy">Ob privat oder gewerblich – wir beraten transparent und lösungsorientiert.</p>
                <div class="story-cta">
-                 <a href="#contact" class="btn btn-green cta-offer" data-i18n="stories.cta.offer">Angebot anfordern</a>
+                 <a href="#contact" class="btn btn-green cta-offer" data-i18n="stories.cta.offer">Request Offer</a>
                </div>
              </div>
            </div>
@@ -2586,6 +2735,9 @@
             <span class="reference-badge" data-i18n="refs.vision.badge">Vision</span>
             <h3 data-i18n="refs.vision.title">Für eine grünere Zukunft</h3>
             <p data-i18n="refs.vision.copy">Klimawandel, zunehmende Hitze – wir pflanzen Bäume und bewässern intelligent für kommende Generationen.</p>
+            <div class="reference-cta">
+              <a href="#contact" class="btn btn-green cta-offer" data-i18n="refs.cta.offer">Angebot anfordern</a>
+            </div>
           </div>
         </article>
         
@@ -2600,6 +2752,9 @@
             <span class="reference-badge" data-i18n="refs.galabau.badge">Messeerfolg</span>
             <h3 data-i18n="refs.galabau.title">GaLaBau 2024: Großes Interesse</h3>
             <p data-i18n="refs.galabau.copy">Live-Demo am Stand, intensive Gespräche mit Fachbesuchern und neue Partnerschaften in der Landschaftsgärtnerei.</p>
+            <div class="reference-cta">
+              <a href="#contact" class="btn btn-green cta-offer" data-i18n="refs.cta.offer">Angebot anfordern</a>
+            </div>
           </div>
         </article>
       </div>
@@ -2651,26 +2806,26 @@
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <span id="stepLabelText"></span>
               <button type="button" id="resetWizard" class="btn btn-secondary" style="font-size:12px; padding:8px 16px; min-width:auto;" data-i18n="contact.reset">Von vorne beginnen</button>
-            </div>
+          </div>
           </div>
 
           <!-- Step 1: Basics -->
           <div class="step" data-step="1">
-            <div class="field">
-              <label for="type" data-i18n="contact.type">Anfrage-Typ</label>
-              <select id="type" name="type">
-                <option value="private" data-i18n="contact.typePrivate">Privat</option>
-                <option value="business" data-i18n="contact.typeBusiness">Gewerblich</option>
-              </select>
-            </div>
-            <div class="field hidden" id="projectSizeField">
-              <label for="projectSize" data-i18n="contact.projectSize">Projektgröße</label>
-              <select id="projectSize" name="projectSize">
-                <option value="small" data-i18n="contact.sizeSmall">Klein (bis 100 m²)</option>
-                <option value="medium" data-i18n="contact.sizeMedium">Mittel (100–500 m²)</option>
-                <option value="large" data-i18n="contact.sizeLarge">Groß (500+ m²)</option>
-              </select>
-            </div>
+          <div class="field">
+            <label for="type" data-i18n="contact.type">Anfrage-Typ</label>
+            <select id="type" name="type">
+              <option value="private" data-i18n="contact.typePrivate">Privat</option>
+              <option value="business" data-i18n="contact.typeBusiness">Gewerblich</option>
+            </select>
+          </div>
+          <div class="field hidden" id="projectSizeField">
+            <label for="projectSize" data-i18n="contact.projectSize">Projektgröße</label>
+            <select id="projectSize" name="projectSize">
+              <option value="small" data-i18n="contact.sizeSmall">Klein (bis 100 m²)</option>
+              <option value="medium" data-i18n="contact.sizeMedium">Mittel (100–500 m²)</option>
+              <option value="large" data-i18n="contact.sizeLarge">Groß (500+ m²)</option>
+            </select>
+          </div>
             <div class="wizard-nav">
               <button type="button" class="btn btn-primary" id="nextStep1" data-i18n="contact.next">Weiter</button>
             </div>
@@ -2718,19 +2873,19 @@
             <div class="field">
               <label for="email" data-i18n="contact.email">E-Mail</label>
               <input type="email" id="email" name="email" required placeholder="max@example.com" data-i18n-placeholder="contact.emailPlaceholder">
-            </div>
-            <div class="field">
-              <label for="message" data-i18n="contact.message">Nachricht</label>
-              <textarea id="message" name="message" required placeholder="Wie können wir helfen?" data-i18n-placeholder="contact.messagePlaceholder"></textarea>
-            </div>
-            <div class="consent">
-              <input type="checkbox" id="consent" required>
-              <label for="consent" data-i18n="contact.consent">Ich stimme der Datenschutzerklärung zu.</label>
-            </div>
+          </div>
+          <div class="field">
+            <label for="message" data-i18n="contact.message">Nachricht</label>
+            <textarea id="message" name="message" required placeholder="Wie können wir helfen?" data-i18n-placeholder="contact.messagePlaceholder"></textarea>
+          </div>
+          <div class="consent">
+            <input type="checkbox" id="consent" required>
+            <label for="consent" data-i18n="contact.consent">Ich stimme der Datenschutzerklärung zu.</label>
+          </div>
             <div class="wizard-nav">
               <button type="button" class="btn btn-secondary" id="backStep3" data-i18n="contact.back">Zurück</button>
-              <button type="submit" class="btn btn-primary" data-i18n="contact.submit">Senden</button>
-            </div>
+            <button type="submit" class="btn btn-primary" data-i18n="contact.submit">Senden</button>
+          </div>
           </div>
 
           <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
@@ -2775,6 +2930,7 @@
           'stories.s1.copy': 'Unser Logo steht für smarte Bewässerung und grüne Zukunft.',
           'stories.s2.title': 'Kontakt auf Augenhöhe',
           'stories.s2.copy': 'Ob privat oder gewerblich – wir beraten transparent und lösungsorientiert.',
+          'stories.cta.offer': 'Angebot anfordern',
           'a11y.skip': 'Zum Inhalt springen',
           'lang.de': 'Deutsch',
           'lang.en': 'English',
@@ -2788,8 +2944,10 @@
           'hero.headline': 'Das intelligente Bewässerungssystem. Selbstversorgend. Sicher. Ganzjährig.',
           'hero.sub': 'In unserem 90-Sekunden-Clip zeigen wir, wie sich das System automatisch an die Bedürfnisse Ihrer Pflanzen anpasst – effizient und ressourcenschonend.',
           'hero.pro': 'Für Profis',
-          'hero.enthusiasts': 'Für Gartenliebhaber',
-          'hero.source': 'Quelle',
+          'hero.enthusiasts': 'For Garden Enthusiasts',
+          'hero.source': 'Source',
+          'hero.cta.offer': 'Request Offer',
+          'hero.cta.offer.text': 'Request Offer',
 
           'audiences.title': 'Für Profis und Gartenliebhaber',
           'audiences.lead': 'Zweigleisige Vorteile – maßgeschneiderte Lösungen für Landschaftsprofis und Privatgärten.',
@@ -2800,6 +2958,8 @@
           'audiences.b2b.c2': 'Flow',
           'audiences.b2b.c3': 'Gateway',
           'audiences.cta.learn': 'Mehr erfahren',
+          'audiences.cta.discover': 'Jetzt entdecken',
+          'audiences.cta.offer': 'Angebot anfordern',
 
           'audiences.b2c.badge': 'B2C • Gartenfreund',
           'audiences.b2c.title': 'Einfach, nachhaltig, zeitsparend',
@@ -2816,7 +2976,8 @@
           'products.tabs.security': 'Empfang & Sicherheit',
           'products.badge': 'Produkt',
           'products.details': 'Details',
-          'products.control.title': 'Steuerungseinheit (Control Unit)',
+          'products.cta.offer': 'Angebot',
+          'products.control.title': 'Control Unit',
           'products.control.meta': 'Zentrale Steuerung – sicher, effizient, vernetzbar.',
           'products.sensor10.title': 'Bodensensor (0–10 cm)',
           'products.sensor10.meta': 'Präzise Messung nahe der Oberfläche, ideal für Rasen und Beete.',
@@ -2844,7 +3005,8 @@
           'refs.vision.title': 'Für eine grünere Zukunft',
           'refs.vision.copy': 'Klimawandel, zunehmende Hitze – wir pflanzen Bäume und bewässern intelligent für kommende Generationen.',
           'refs.galabau': 'Erfolgsmeldung GaLaBau 2024: Großes Interesse, Live-Demo am Stand.',
-          'refs.partners.title': 'Unsere Partner',
+          'refs.partners.title': 'Our Partners',
+          'refs.cta.offer': 'Request Offer',
           'refs.video.title': 'Unsere Vision im Video',
           'refs.video.copy': 'Sehen Sie, wie unser intelligentes Bewässerungssystem funktioniert und welche Vision wir für eine nachhaltige Zukunft haben.',
 
@@ -2858,16 +3020,18 @@
           'benefits.time.copy': 'Vollautomatische Bewässerung rund um die Uhr, auch im Urlaub.',
           'benefits.eco.title': 'Umweltschutz',
           'benefits.eco.copy': 'Nachhaltige Ressourcennutzung für eine grünere Zukunft.',
+          'benefits.cta.offer': 'Request Offer',
 
           'irrig.title': 'Interaktiver Bewässerungsplan',
-          'irrig.lead': 'Live-Animation des Wasserflusses – steuerbare Zonen, Tempo, Thema und Overlay.',
+          'irrig.lead': 'Live-Animation des Wasserflusses – steuerbare Zonen, Tempo und Blueprint-Overlay.',
           'irrig.pause': 'Pause',
           'irrig.play': 'Abspielen',
           'irrig.speed': 'Geschwindigkeit',
-          'irrig.zoneA': 'Zone A (Beete)',
-          'irrig.zoneB': 'Zone B (Rasen)',
-
-          'irrig.overlay': 'Blueprint-Overlay',
+          'irrig.zoneA': 'Zone A (Beds)',
+          'irrig.zoneB': 'Zone B (Lawn)',
+          'irrig.zoneC': 'Zone C (Compact Beds)',
+          'irrig.zoneD': 'Zone D (Compact Lawn)',
+          'irrig.overlay': 'Blueprint overlay',
 
           'quote.text': 'Innovation und Natur vereint',
           'quote.author': '— Hide & Grow',
@@ -2924,6 +3088,7 @@
           'stories.s1.copy': 'Our logo stands for smart irrigation and a green future.',
           'stories.s2.title': 'Contact that listens',
           'stories.s2.copy': 'Private or business – we advise with clarity and solutions.',
+          'stories.cta.offer': 'Angebot anfordern',
           'a11y.skip': 'Skip to content',
           'lang.de': 'Deutsch',
           'lang.en': 'English',
@@ -2949,6 +3114,8 @@
           'audiences.b2b.c2': 'Flow',
           'audiences.b2b.c3': 'Gateway',
           'audiences.cta.learn': 'Learn More',
+          'audiences.cta.discover': 'Discover Now',
+          'audiences.cta.offer': 'Request Offer',
 
           'audiences.b2c.badge': 'B2C • Garden Lover',
           'audiences.b2c.title': 'Simple, sustainable, time-saving',
@@ -2965,6 +3132,7 @@
           'products.tabs.security': 'Reception & Security',
           'products.badge': 'Product',
           'products.details': 'Details',
+          'products.cta.offer': 'Angebot',
           'products.control.title': 'Control Unit',
           'products.control.meta': 'Central controller – secure, efficient, connectable.',
           'products.sensor10.title': 'Soil Sensor (0–10 cm)',
@@ -2994,6 +3162,7 @@
           'refs.vision.copy': 'Climate change, rising heat – we plant trees and irrigate intelligently.',
           'refs.galabau': 'GaLaBau 2024 highlight: strong interest, live demo at our booth.',
           'refs.partners.title': 'Our Partners',
+          'refs.cta.offer': 'Angebot anfordern',
           'refs.video.title': 'Our Vision in Video',
           'refs.video.copy': 'See how our intelligent irrigation system works and what vision we have for a sustainable future.',
 
@@ -3015,7 +3184,8 @@
           'irrig.speed': 'Speed',
           'irrig.zoneA': 'Zone A (Beds)',
           'irrig.zoneB': 'Zone B (Lawn)',
-
+          'irrig.zoneC': 'Zone C (Compact Beds)',
+          'irrig.zoneD': 'Zone D (Compact Lawn)',
           'irrig.overlay': 'Blueprint overlay',
 
           'quote.text': 'Innovation and Nature United',
@@ -3273,6 +3443,13 @@
         const svgHost = irrig.querySelector('.irrigation-svg');
         const zoneAGroup = irrig.querySelector('#zoneAGroup');
         const zoneBGroup = irrig.querySelector('#zoneBGroup');
+        const zoneCInput = document.getElementById('zoneC');
+        const zoneDInput = document.getElementById('zoneD');
+        const zoneCGroup = irrig.querySelector('#zoneCGroup');
+        const zoneDGroup = irrig.querySelector('#zoneDGroup');
+
+        // Overlay image node
+        const overlayImg = svgHost.querySelector('.overlay-img');
 
         function setPaused(paused) {
           svgHost.classList.toggle('paused', paused);
@@ -3313,8 +3490,12 @@
         }
         setZoneEnabled(zoneAGroup, zoneAInput.checked);
         setZoneEnabled(zoneBGroup, zoneBInput.checked);
+        if (zoneCGroup && zoneCInput) setZoneEnabled(zoneCGroup, zoneCInput.checked);
+        if (zoneDGroup && zoneDInput) setZoneEnabled(zoneDGroup, zoneDInput.checked);
         zoneAInput.addEventListener('change', () => setZoneEnabled(zoneAGroup, zoneAInput.checked));
         zoneBInput.addEventListener('change', () => setZoneEnabled(zoneBGroup, zoneBInput.checked));
+        zoneCInput && zoneCInput.addEventListener('change', () => setZoneEnabled(zoneCGroup, zoneCInput.checked));
+        zoneDInput && zoneDInput.addEventListener('change', () => setZoneEnabled(zoneDGroup, zoneDInput.checked));
 
         function setOverlay(show) {
           svgHost.classList.toggle('show-overlay', show);
@@ -3470,7 +3651,7 @@
         try {
           await new Promise(r => setTimeout(r, 600));
           console.log('Contact payload (dummy send):', payload);
-          status.style.color = 'var(--brand-green-600)';
+        status.style.color = 'var(--brand-green-600)';
           status.textContent = html.lang === 'en' ? 'Thank you! Your request and offer were sent.' : 'Danke! Deine Anfrage inkl. Angebot wurde gesendet.';
           resetWizard();
         } catch (err) {
