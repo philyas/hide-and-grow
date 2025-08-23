@@ -21,6 +21,38 @@
   <meta name="twitter:image" content="/assets/og-image.jpg">
   <meta name="theme-color" content="#259963">
   <link rel="stylesheet" href="css/styles.css">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+  <script>
+    // Scene graph API to tweak materials after load
+    document.addEventListener('DOMContentLoaded', () => {
+      const mv = document.querySelector('model-viewer');
+      if (!mv) return;
+
+      mv.addEventListener('load', async () => {
+        try {
+          const {materials} = mv.model ?? {};
+          if (materials && materials.length) {
+            // Try to find grass-like material by common names
+            const names = ['rostlinka_24', 'grass', 'Rasen', 'ground', 'terrain'];
+            const mat = materials.find(m => names.includes((m.name||'').toLowerCase()));
+            if (mat && mat.pbrMetallicRoughness) {
+              // Slightly boost base color green if texture looks dull
+              const base = mat.pbrMetallicRoughness.baseColorFactor || [1,1,1,1];
+              mat.pbrMetallicRoughness.setBaseColorFactor([
+                base[0]*0.8,
+                Math.min(1, base[1]*1.2),
+                base[2]*0.8,
+                base[3] ?? 1
+              ]);
+            }
+          }
+          mv.requestUpdate();
+        } catch (e) {
+          console.warn('Material tweak failed', e);
+        }
+      });
+    });
+  </script>
 </head>
 <body>
   <a href="#main" class="skip-link" data-i18n="a11y.skip">Zum Inhalt springen</a>
@@ -277,6 +309,86 @@
       </div>
     </section>
 
+    <!-- 3D Product Viewer -->
+    <section id="viewer" class="section container reveal" aria-labelledby="viewer-title">
+      <div class="section-head">
+        <h2 id="viewer-title">3D Produktansicht</h2>
+        <p class="lead">Automatische Rotation & per Drag drehbar.</p>
+      </div>
+      <div style="display: flex; justify-content: center; align-items: center; min-height: 520px; max-width: 600px; margin: 0 auto; border-radius: var(--radius-lg); background:
+        linear-gradient(135deg, #f8faf8 0%, #f0f7f4 25%, #e8f5ed 50%, #f0f7f4 75%, #f8faf8 100%),
+        linear-gradient(180deg, #ffffff 0%, #f8faf8 50%, #f0f7f4 100%);">
+        <model-viewer
+          src="assets/aula_29_-_sensor_de_umidade_e_temperatura_dht11.glb"
+          alt="3D Ansicht des Bewässerungssystems"
+          camera-controls
+          auto-rotate
+          rotation-per-second="20deg"
+          interaction-prompt="none"
+          touch-action="pan-y"
+          shadow-intensity="1"
+          shadow-softness="0.8"
+          exposure="1.4"
+          min-camera-orbit="auto auto 55%"
+          max-camera-orbit="auto auto 200%"
+          camera-orbit="15deg 65deg 110%"
+          field-of-view="22deg"
+          style="width: 100%; height: 520px; background: transparent; border-radius: var(--radius-lg);">
+          
+          <!-- Interactive Hotspots -->
+          
+          <button class="hotspot" slot="hotspot-2" data-position="100 0 100" data-normal="0 1 0">
+            <div class="annotation">Bodensensor</div>
+          </button>
+          
+          <button class="hotspot" slot="hotspot-3" data-position="-100 0 -100" data-normal="0 1 0">
+            <div class="annotation">Gateway</div>
+          </button>
+          
+        </model-viewer>
+      </div>
+    </section>
+
+    <!-- Section Transition: 3D Viewer to Vision -->
+    <div class="section-transition">
+      <div class="zigzag-transition">
+        <svg viewBox="0 0 1200 80" preserveAspectRatio="none">
+          <path d="M0,0 L100,40 L200,0 L300,40 L400,0 L500,40 L600,0 L700,40 L800,0 L900,40 L1000,0 L1100,40 L1200,0 L1200,80 L0,80 Z" fill="var(--brand-white)"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Vision Video Section -->
+    <section class="section container reveal" aria-labelledby="vision-video-title">
+      <div class="vision-video-section">
+        <div class="vision-content">
+          <div class="vision-text">
+            <h3 id="vision-video-title" data-i18n="refs.video.title">Unsere Vision im Video</h3>
+            <p data-i18n="refs.video.copy">Sehen Sie, wie unser intelligentes Bewässerungssystem funktioniert und welche Vision wir für eine nachhaltige Zukunft haben.</p>
+            <div class="vision-highlights">
+              <p><strong>Innovation trifft Nachhaltigkeit:</strong> Unser System kombiniert modernste Sensortechnologie mit umweltbewusster Ressourcennutzung.</p>
+              <p><strong>Zukunftssicher:</strong> Durch künstliche Intelligenz passt sich die Bewässerung automatisch an Klimaveränderungen und Pflanzenbedürfnisse an.</p>
+              <p><strong>Für alle:</strong> Ob privater Garten oder gewerbliche Landschaftsgestaltung – wir machen intelligente Bewässerung für jeden zugänglich.</p>
+            </div>
+          </div>
+          <div class="vision-video">
+            <video controls muted playsinline preload="none" poster="https://hideandgrow.de/wp-content/uploads/2024/08/gruenderpreis_video_thumbnail.png">
+              <source src="https://hideandgrow.de/wp-content/uploads/2024/08/hideandgrow_GPBW24-compressed.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Transition: Vision to Irrigation Plan -->
+    <div class="section-transition">
+      <div class="diagonal-transition">
+        <svg viewBox="0 0 1200 80" preserveAspectRatio="none">
+          <path d="M0,0 L1200,80 L1200,0 Z" fill="var(--brand-white)"/>
+        </svg>
+      </div>
+    </div>
+
     <!-- Interactive Irrigation Plan -->
     <section class="section container reveal irrigation-section" aria-labelledby="irrigation-title">
       <div class="section-head">
@@ -450,14 +562,14 @@
       </div>
     </section>
 
-     <!-- Section Transition: Products to Vision Video -->
-     <div class="section-transition">
-       <div class="zigzag-transition">
-         <svg viewBox="0 0 1200 80" preserveAspectRatio="none">
-           <path d="M0,0 L100,40 L200,0 L300,40 L400,0 L500,40 L600,0 L700,40 L800,0 L900,40 L1000,0 L1100,40 L1200,0 L1200,80 L0,80 Z" fill="var(--brand-white)"/>
-         </svg>
-       </div>
-     </div>
+    <!-- Section Transition: 3D Viewer to Vision -->
+    <div class="section-transition">
+      <div class="zigzag-transition">
+        <svg viewBox="0 0 1200 80" preserveAspectRatio="none">
+          <path d="M0,0 L100,40 L200,0 L300,40 L400,0 L500,40 L600,0 L700,40 L800,0 L900,40 L1000,0 L1100,40 L1200,0 L1200,80 L0,80 Z" fill="var(--brand-white)"/>
+        </svg>
+      </div>
+    </div>
 
     <!-- Vision Video Section -->
     <section class="section container reveal" aria-labelledby="vision-video-title">
@@ -481,7 +593,7 @@
       </div>
     </section>
 
-    <!-- Section Transition: Vision Video to Benefits -->
+    <!-- Section Transition: Vision to Irrigation Plan -->
     <div class="section-transition">
       <div class="diagonal-transition">
         <svg viewBox="0 0 1200 80" preserveAspectRatio="none">
