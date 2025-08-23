@@ -28,10 +28,10 @@
     currentStep = step;
     stepEls.forEach(el => el.classList.toggle('hidden', Number(el.dataset.step) !== currentStep));
     const totalSteps = stepEls.length;
-    const labels = {
-      de: ['Grundlagen', 'Komponenten', 'Kontakt & Angebot'],
-      en: ['Basics', 'Components', 'Contact & Offer']
-    };
+                         const labels = {
+           de: ['Anfrage', 'Komponenten', 'Kontakt & Angebot'],
+           en: ['Request', 'Components', 'Contact & Offer']
+         };
     const langKey = (html.lang === 'en') ? 'en' : 'de';
     const stepLabelText = document.getElementById('stepLabelText');
     stepLabelText.textContent = `${labels[langKey][currentStep - 1]} (${currentStep}/${totalSteps})`;
