@@ -638,6 +638,41 @@
         padding-top: 64px;
       }
       
+      /* Add horizontal padding to sections on mobile/tablet */
+      .section .container {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+      
+      /* Extra padding for specific sections */
+      .section .card,
+      .section .benefit-card,
+      .section .reference-card,
+      .section .image-text-pair,
+      .section form {
+        margin-left: 8px;
+        margin-right: 8px;
+      }
+      
+      /* Section heads also need padding */
+      .section .section-head {
+        margin-left: 8px;
+        margin-right: 8px;
+      }
+      
+      /* Hide decorative SVG paths on mobile/tablet */
+      .section-head h2::before,
+      .section-head h3::before,
+      .section-head h2::after,
+      .section-head h3::after {
+        display: none;
+      }
+      
+      /* Hide section transition SVG paths on mobile/tablet */
+      .section-transition {
+        display: none;
+      }
+      
       /* Section headings */
       .section-head { 
         flex-direction: column; 
@@ -758,19 +793,91 @@
       /* Irrigation section */
       .irrigation-ui { 
         grid-template-columns: 1fr; 
-        gap: 16px; 
-        padding: 16px; 
+        gap: 8px; 
+        padding: 8px; 
+        text-align: left;
+        align-items: flex-start;
       }
       
       .irrigation-ui .group { 
         flex-direction: column; 
         align-items: flex-start; 
-        gap: 8px; 
+        gap: 4px; 
+        width: 100%;
+        text-align: left;
+      }
+      
+      .irrigation-ui .btn { 
+        padding: 6px 12px; 
+        font-size: 13px; 
+        border-radius: 4px; 
+        margin-bottom: 4px; 
+        align-self: flex-start;
+        width: auto;
       }
       
       .irrigation-ui input[type="range"] { 
         width: 100%; 
-        max-width: 200px; 
+        max-width: 160px; 
+        height: 5px; 
+        margin: 2px 0; 
+        align-self: flex-start;
+      }
+      
+      .irrigation-ui input[type="checkbox"] { 
+        width: 18px; 
+        height: 18px; 
+        border-radius: 3px; 
+        margin: 0; 
+        flex-shrink: 0;
+      }
+      
+      .irrigation-ui label { 
+        font-size: 11px; 
+        font-weight: 500; 
+        margin: 0; 
+        line-height: 1.2; 
+        text-align: left;
+      }
+      
+      .irrigation-ui .toggle { 
+        gap: 4px; 
+        align-items: center; 
+        margin: 2px 0; 
+        justify-content: flex-start;
+        width: 100%;
+      }
+      
+      /* Compact checkbox groups */
+      .irrigation-ui .group[role="group"][aria-label="Zonen"] {
+        gap: 0;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .irrigation-ui .group[role="group"][aria-label="Zonen"] .toggle {
+        margin: 0;
+        padding: 0;
+        line-height: 1;
+        min-height: auto;
+      }
+      
+      /* Make checkboxes stick together vertically */
+      .irrigation-ui .group[role="group"][aria-label="Zonen"] .toggle:not(:last-child) {
+        margin-bottom: 4px;
+      }
+      
+      .irrigation-ui .group[role="group"][aria-label="Zonen"] .toggle:not(:first-child) {
+        margin-top: 0;
+      }
+      
+      /* Add small gap between zones and blueprint overlay */
+      .irrigation-ui .group[role="group"][aria-label="Zonen"] {
+        margin-bottom: 8px;
+      }
+      
+      .irrigation-ui .group:last-child {
+        margin-top: 8px;
       }
       
       /* Vision video section */
@@ -882,6 +989,28 @@
         padding: 32px 0; 
       }
       
+      /* Extra horizontal padding on small mobile */
+      .section .container {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      
+      /* More margin for cards on small screens */
+      .section .card,
+      .section .benefit-card,
+      .section .reference-card,
+      .section .image-text-pair,
+      .section form {
+        margin-left: 12px;
+        margin-right: 12px;
+      }
+      
+      /* Section heads also need more margin on small screens */
+      .section .section-head {
+        margin-left: 12px;
+        margin-right: 12px;
+      }
+      
       .section-head { 
         margin-bottom: 16px; 
       }
@@ -936,6 +1065,86 @@
       .audio-toggle svg { 
         width: 20px; 
         height: 20px; 
+      }
+      
+      /* Irrigation section on very small screens */
+      .irrigation-ui { 
+        padding: 6px; 
+        gap: 6px; 
+        text-align: left;
+      }
+      
+      .irrigation-ui .group { 
+        gap: 3px; 
+        width: 100%;
+        text-align: left;
+      }
+      
+      .irrigation-ui .btn { 
+        padding: 5px 10px; 
+        font-size: 12px; 
+        margin-bottom: 3px; 
+        align-self: flex-start;
+        width: auto;
+      }
+      
+      .irrigation-ui input[type="range"] { 
+        max-width: 140px; 
+        height: 4px; 
+        margin: 1px 0; 
+        align-self: flex-start;
+      }
+      
+      .irrigation-ui input[type="checkbox"] { 
+        width: 16px; 
+        height: 16px; 
+        border-radius: 2px; 
+        flex-shrink: 0;
+      }
+      
+      .irrigation-ui label { 
+        font-size: 10px; 
+        line-height: 1.1; 
+        text-align: left;
+      }
+      
+      .irrigation-ui .toggle { 
+        gap: 3px; 
+        margin: 1px 0; 
+        justify-content: flex-start;
+        width: 100%;
+      }
+      
+      /* Ultra-compact checkbox groups on small screens */
+      .irrigation-ui .group[role="group"][aria-label="Zonen"] {
+        gap: 0;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .irrigation-ui .group[role="group"][aria-label="Zonen"] .toggle {
+        margin: 0;
+        padding: 0;
+        line-height: 1;
+        min-height: auto;
+      }
+      
+      /* Ultra-tight checkbox spacing on small screens */
+      .irrigation-ui .group[role="group"][aria-label="Zonen"] .toggle:not(:last-child) {
+        margin-bottom: 3px;
+      }
+      
+      .irrigation-ui .group[role="group"][aria-label="Zonen"] .toggle:not(:first-child) {
+        margin-top: 0;
+      }
+      
+      /* Smaller gaps on very small screens */
+      .irrigation-ui .group[role="group"][aria-label="Zonen"] {
+        margin-bottom: 6px;
+      }
+      
+      .irrigation-ui .group:last-child {
+        margin-top: 6px;
       }
     }
 
