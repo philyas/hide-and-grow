@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hide & Grow – App</title>
+  <meta name="theme-color" content="#259963">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a href="#main" class="skip-link">Zum Inhalt springen</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img class="brand-logo" src="https://hideandgrow.de/wp-content/uploads/elementor/thumbs/HID-LOGO-qt6co8io8dgji2fbhr3syffk25n0z4kah5aem9tz48.png" alt="Hide & Grow Logo">
+      </div>
+      <nav class="top-nav" aria-label="Primary">
+        <a href="index.html#products">Produkte</a>
+        <a href="index.html#contact">Kontakt</a>
+        <a href="app.html" aria-current="page">App</a>
+      </nav>
+      <div class="lang-switch desktop-lang-switch" role="group" aria-label="Language switcher">
+        <button type="button" data-lang="de" class="active">Deutsch</button>
+        <button type="button" data-lang="en">English</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="app-root">
+    <!-- Login View -->
+    <section id="loginView" class="section container app-section">
+      <div class="app-auth">
+        <div class="app-card">
+          <h1 class="app-title">Anmelden</h1>
+          <p class="app-sub">Demo-Zugang: admin / admin</p>
+          <form id="loginForm" class="app-form" novalidate>
+            <div class="field">
+              <label for="username">Benutzername</label>
+              <input id="username" type="text" placeholder="admin" required autocomplete="username">
+            </div>
+            <div class="field">
+              <label for="password">Passwort</label>
+              <input id="password" type="password" placeholder="admin" required autocomplete="current-password">
+            </div>
+            <button type="submit" class="btn btn-primary app-btn">Login</button>
+            <div id="loginStatus" class="form-status" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- App View (hidden until auth) -->
+    <section id="appView" class="section container app-section hidden" aria-live="polite">
+      <div class="app-grid">
+        <aside class="app-sidebar">
+          <div class="app-user">
+            <div class="app-avatar" aria-hidden="true">HG</div>
+            <div>
+              <div class="app-user-name" id="userName">admin</div>
+              <div class="app-user-role">Administrator</div>
+            </div>
+          </div>
+          <nav class="app-nav" aria-label="App Navigation">
+            <button class="app-nav-link active" data-route="overview">Übersicht</button>
+            <button class="app-nav-link" data-route="manual">Bedienungsanleitung</button>
+            <button class="app-nav-link" data-route="insights">Einblicke</button>
+          </nav>
+          <button id="logoutBtn" class="btn btn-secondary app-logout">Logout</button>
+        </aside>
+
+        <section class="app-content" id="routeContainer" tabindex="-1">
+          <!-- Overview -->
+          <div class="route" data-route="overview">
+            <h2 class="app-h2">Übersicht</h2>
+            <div class="app-kpis">
+              <div class="kpi-card">
+                <div class="kpi-label">Aktive Zonen</div>
+                <div class="kpi-value" id="kpiZones">3</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-label">Sensoren online</div>
+                <div class="kpi-value" id="kpiSensors">6</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-label">Wasserverbrauch (heute)</div>
+                <div class="kpi-value" id="kpiWater">38 L</div>
+              </div>
+            </div>
+
+            <div class="app-panels">
+              <div class="panel-card">
+                <h3>Live-Status</h3>
+                <p>Alle Systeme arbeiten im Normbereich. Nächster Zyklus in 2h 15m.</p>
+              </div>
+              <div class="panel-card">
+                <h3>Aktionen</h3>
+                <div class="actions">
+                  <button class="btn btn-green" id="actionRun">Bewässerung starten</button>
+                  <button class="btn btn-secondary" id="actionStop">Stoppen</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Manual -->
+          <div class="route hidden" data-route="manual">
+            <h2 class="app-h2">Bedienungsanleitung</h2>
+            <div class="manual-steps">
+              <details open>
+                <summary>1. Vorbereitung</summary>
+                <ul>
+                  <li>Sensoren platzieren (0–10 cm / 0–20 cm / bis 150 cm).</li>
+                  <li>Gateway mit Strom und Netzwerk verbinden.</li>
+                  <li>Durchflusssensor in Hauptleitung montieren.</li>
+                </ul>
+              </details>
+              <details>
+                <summary>2. Inbetriebnahme</summary>
+                <ul>
+                  <li>Control Unit einschalten.</li>
+                  <li>Sensoren koppeln (Bluetooth).</li>
+                  <li>Zonen definieren und Testlauf starten.</li>
+                </ul>
+              </details>
+              <details>
+                <summary>3. Betrieb</summary>
+                <ul>
+                  <li>Automatikmodus aktivieren.</li>
+                  <li>Wasserverbrauch prüfen.</li>
+                  <li>Wartung: Entlüftungspaket alle 3 Monate prüfen.</li>
+                </ul>
+              </details>
+            </div>
+          </div>
+
+          <!-- Insights -->
+          <div class="route hidden" data-route="insights">
+            <h2 class="app-h2">Einblicke</h2>
+            <div class="insights-grid" id="insightsGrid"></div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <div class="footer-links">
+        <a href="#">Impressum</a>
+        <a href="#">Datenschutz</a>
+        <a href="#">Rechtliches</a>
+      </div>
+      <div style="text-align:center; font-weight:700;">Hide & Grow</div>
+      <div style="text-align:right; color: var(--brand-gray-500);">© <span id="year"></span></div>
+    </div>
+  </footer>
+
+  <script src="js/core.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>
+
