@@ -66,16 +66,48 @@
         <a href="#references" data-i18n="nav.references">Referenzen</a>
         <a href="#contact" data-i18n="nav.contact">Kontakt</a>
       </nav>
-      <div class="lang-switch" role="group" aria-label="Language switcher">
+      <button id="menuToggle" class="menu-toggle" aria-label="Menü öffnen" aria-controls="sideNav" aria-expanded="false">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <div class="lang-switch desktop-lang-switch" role="group" aria-label="Language switcher">
         <button type="button" data-lang="de" class="active" data-i18n="lang.de">Deutsch</button>
         <button type="button" data-lang="en" data-i18n="lang.en">English</button>
       </div>
     </div>
   </header>
 
+  <!-- Mobile/Tablet Side Navigation -->
+  <nav id="sideNav" class="side-nav" aria-label="Sektionen">
+    <div class="side-nav-header">
+      <img class="brand-logo" src="https://hideandgrow.de/wp-content/uploads/elementor/thumbs/HID-LOGO-qt6co8io8dgji2fbhr3syffk25n0z4kah5aem9tz48.png" alt="Hide & Grow" />
+      <button id="closeSideNav" class="side-close" aria-label="Menü schließen">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <ul class="side-list">
+      <li><a class="side-link" href="#hero" data-section-target="hero">Start</a></li>
+      <li><a class="side-link" href="#products" data-section-target="products">Produkte</a></li>
+      <li><a class="side-link" href="#viewer" data-section-target="viewer">3D Viewer</a></li>
+      <li><a class="side-link" href="#irrigation-section" data-section-target="irrigation-section">Bewässerungsplan</a></li>
+      <li><a class="side-link" href="#benefits" data-section-target="benefits">Vorteile</a></li>
+      <li><a class="side-link" href="#stories" data-section-target="stories">Einblicke</a></li>
+      <li><a class="side-link" href="#references" data-section-target="references">Referenzen</a></li>
+      <li><a class="side-link" href="#contact" data-section-target="contact">Kontakt</a></li>
+    </ul>
+    <div style="padding:12px 12px 16px; border-top: 1px solid var(--brand-gray-200); margin-top: 8px;">
+      <div class="lang-switch" role="group" aria-label="Language switcher">
+        <button type="button" data-lang="de" class="active" data-i18n="lang.de">Deutsch</button>
+        <button type="button" data-lang="en" data-i18n="lang.en">English</button>
+      </div>
+    </div>
+  </nav>
+  <div id="sideOverlay" class="side-overlay" hidden></div>
+
   <main id="main">
     <!-- Hero Section -->
-    <section class="hero" aria-label="Hero">
+    <section id="hero" class="hero" aria-label="Hero">
       <!-- Audio Toggle Button -->
       <div class="audio-toggle-container">
         <button id="audioToggle" class="audio-toggle" aria-label="Ton ein/ausschalten" title="Ton ein/ausschalten">
@@ -340,7 +372,7 @@
     </div>
 
     <!-- Vision Video Section -->
-    <section class="section container reveal" aria-labelledby="vision-video-title">
+    <section id="vision" class="section container reveal" aria-labelledby="vision-video-title">
       <div class="vision-video-section">
         <div class="vision-content">
           <div class="vision-text">
@@ -371,7 +403,7 @@
     </div>
 
     <!-- Interactive Irrigation Plan -->
-    <section class="section container reveal irrigation-section" aria-labelledby="irrigation-title">
+    <section id="irrigation-section" class="section container reveal irrigation-section" aria-labelledby="irrigation-title">
       <div class="section-head">
         <h2 id="irrigation-title" data-i18n="irrig.title">Interaktiver Bewässerungsplan</h2>
          <p class="lead" data-i18n="irrig.lead">Live-Animation des Wasserflusses – steuerbare Zonen, Tempo und Blueprint-Overlay.</p>
@@ -544,7 +576,7 @@
     </section>
 
         <!-- Vorteile der Gartenbewässerungsanlage -->
-    <section class="section container reveal" aria-labelledby="benefits-title">
+    <section id="benefits" class="section container reveal" aria-labelledby="benefits-title">
       <div class="section-head" style="text-align:center;flex-direction:column;gap:24px;margin-bottom:48px;align-items:center;justify-content:center;">
         <h2 id="benefits-title" data-i18n="benefits.title">Vorteile der Gartenbewässerung</h2>
         <p class="lead" data-i18n="benefits.lead">Entdecken Sie die Vorteile unseres intelligenten Systems.</p>
@@ -653,7 +685,7 @@
     </div>
 
     <!-- Image + Text pairs (responsive) -->
-    <section class="section container reveal" aria-labelledby="stories-title">
+    <section id="stories" class="section container reveal" aria-labelledby="stories-title">
       <div class="section-head">
         <h2 id="stories-title" data-i18n="stories.title">Einblicke</h2>
         <p class="lead" data-i18n="stories.lead">Bilder und kurze Geschichten – was uns antreibt.</p>

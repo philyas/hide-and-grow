@@ -67,3 +67,81 @@
 })();
 
 
+// Mobile/Tablet side navigation and section switching
+(function() {
+  const menuBtn = document.getElementById('menuToggle');
+  const sideNav = document.getElementById('sideNav');
+  const sideOverlay = document.getElementById('sideOverlay');
+  const closeBtn = document.getElementById('closeSideNav');
+  const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 72;
+
+  if (!menuBtn || !sideNav) return;
+
+  function openSide() {
+    sideNav.classList.add('open');
+    sideOverlay && (sideOverlay.hidden = false);
+    document.body.style.overflow = 'hidden';
+    menuBtn.setAttribute('aria-expanded', 'true');
+  }
+  function closeSide() {
+    sideNav.classList.remove('open');
+    sideOverlay && (sideOverlay.hidden = true);
+    document.body.style.overflow = '';
+    menuBtn.setAttribute('aria-expanded', 'false');
+  }
+
+  menuBtn.addEventListener('click', openSide);
+  closeBtn && closeBtn.addEventListener('click', closeSide);
+  sideOverlay && sideOverlay.addEventListener('click', closeSide);
+
+  const sectionIds = ['hero','products','viewer','irrigation-section','benefits','stories','references','contact'];
+  const sections = sectionIds
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+
+  function isMobile() {
+    return window.matchMedia('(max-width: 979.98px)').matches;
+  }
+
+  function showOnlySection(id) {
+    if (!isMobile()) return;
+    document.body.classList.add('nav-mode');
+    sections.forEach(sec => sec.classList.remove('active-section'));
+    const target = document.getElementById(id);
+    if (target) {
+      target.classList.add('active-section');
+      // optional: scroll to top for focus context
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  // Default: when entering mobile, show hero only
+  function ensureInitialMobileState() {
+    if (isMobile()) {
+      if (!sections.some(s => s.classList.contains('active-section'))) {
+        showOnlySection('hero');
+      } else {
+        document.body.classList.add('nav-mode');
+      }
+    } else {
+      // On desktop show all
+      document.body.classList.remove('nav-mode');
+      sections.forEach(sec => sec.classList.remove('active-section'));
+    }
+  }
+  ensureInitialMobileState();
+  window.addEventListener('resize', ensureInitialMobileState);
+
+  // Wire side nav links
+  sideNav.addEventListener('click', (e) => {
+    const link = e.target.closest('a.side-link');
+    if (!link) return;
+    const targetId = link.getAttribute('data-section-target');
+    if (targetId) {
+      e.preventDefault();
+      showOnlySection(targetId);
+      closeSide();
+    }
+  });
+})();
+
