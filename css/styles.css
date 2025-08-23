@@ -903,6 +903,87 @@
         font-size: 24px; 
       }
       
+      /* Dark green gradient for Innovation und Natur vereint */
+      .quote-box.dark-green-gradient {
+        background: linear-gradient(135deg, var(--brand-green-800), var(--brand-green-900));
+        color: var(--brand-white);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-soft);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .quote-box.dark-green-gradient::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.05));
+        pointer-events: none;
+      }
+      
+      .quote-box.dark-green-gradient .quote-content {
+        position: relative;
+        z-index: 2;
+      }
+      
+      .quote-box.dark-green-gradient blockquote {
+        color: var(--brand-white);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      
+      .quote-box.dark-green-gradient cite {
+        color: var(--brand-green-200);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      }
+      
+      /* Glass shine effect on hover */
+      .quote-box.dark-green-gradient::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+        transition: left 0.8s ease;
+        pointer-events: none;
+        z-index: 1;
+      }
+      
+      .quote-box.dark-green-gradient:hover::after {
+        left: 100%;
+      }
+      
+      /* Override general hover effects for dark green version */
+      .quote-box.dark-green-gradient:hover {
+        transform: none !important;
+        box-shadow: var(--shadow-soft) !important;
+        border-color: transparent !important;
+      }
+      
+      /* Alternative: Shimmer effect that's always visible */
+      .quote-box.dark-green-gradient::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+        background-size: 200% 200%;
+        animation: shimmer 2s ease-in-out infinite;
+        pointer-events: none;
+        z-index: 1;
+      }
+      
+      @keyframes shimmer {
+        0% { background-position: -200% -200%; }
+        100% { background-position: 200% 200%; }
+      }
+      
       /* Partners section */
       .partners-grid { 
         grid-template-columns: repeat(2, 1fr); 
@@ -1568,6 +1649,60 @@
     .header-image img { width: 100%; height: auto; display: block; }
     .content { display: flex; flex-direction: column; gap: 20px; }
     
+    /* Fiona Sailer Quote Card */
+    .quote-card {
+      background: linear-gradient(135deg, var(--brand-green-50), var(--brand-blue-50));
+      border: 1px solid var(--brand-green-200);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      text-align: center;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .quote-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--brand-green-500), var(--brand-blue-500));
+    }
+    
+    .fiona-quote {
+      margin: 0;
+      position: relative;
+    }
+    
+    .fiona-quote p {
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.6;
+      color: var(--brand-gray-800);
+      margin: 0 0 20px 0;
+      font-style: italic;
+    }
+    
+    .quote-author {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--brand-green-700);
+      margin: 0;
+      font-style: normal;
+    }
+    
+    @media (max-width: 768px) {
+      .quote-card {
+        padding: 24px;
+        margin: 0 12px;
+      }
+      .fiona-quote p {
+        font-size: 18px;
+      }
+    }
+    
     /* Vision Quote Overlay */
     .vision-quote {
       position: absolute;
@@ -1583,6 +1718,22 @@
       border-radius: var(--radius-lg);
       backdrop-filter: blur(8px);
       border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Compact version of vision quote */
+    .vision-quote.compact {
+      max-width: 500px;
+      padding: 16px;
+    }
+    
+    .vision-quote.compact p {
+      font-size: 18px;
+      margin: 0 0 12px 0;
+    }
+    
+    .vision-quote.compact footer {
+      font-size: 14px;
+      margin-bottom: 8px;
     }
     .vision-quote blockquote {
       margin: 0;
@@ -1629,7 +1780,7 @@
     }
     .image-text-pair img { 
       width: 100%; 
-      height: 280px; 
+      height: 400px; 
       object-fit: cover;
       border-radius: var(--radius-md);
       box-shadow: var(--shadow-soft);
@@ -1650,6 +1801,28 @@
       color: var(--brand-gray-700);
       margin: 0;
     }
+    
+    /* Fiona Sailer Quote specific styles within image-text-pair */
+    .image-text-pair .fiona-quote {
+      margin: 0;
+    }
+    
+    .image-text-pair .fiona-quote p {
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.6;
+      color: var(--brand-gray-800);
+      margin: 0 0 20px 0;
+      font-style: italic;
+    }
+    
+    .image-text-pair .quote-author {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--brand-green-700);
+      margin: 0;
+      font-style: normal;
+    }
     @media (max-width: 768px) {
       .image-text-pair { 
         grid-template-columns: 1fr; 
@@ -1658,7 +1831,7 @@
         padding: 24px;
       }
       .image-text-pair img { 
-        height: 200px;
+        height: 300px;
       }
     }
     .card .media img { width: 100%; height: 100%; object-fit: contain; padding: 16px; }
@@ -1826,6 +1999,73 @@
        border: 2px solid rgba(22, 101, 52, 0.3);
      }
      
+     /* Dark green gradient version for Innovation und Natur vereint */
+     .quote-box.dark-green-gradient {
+       background: linear-gradient(135deg, #166534, #14532d) !important;
+       color: white !important;
+       border: none !important;
+       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+     }
+     
+     .quote-box.dark-green-gradient::before {
+       content: '';
+       position: absolute;
+       top: 0;
+       left: 0;
+       right: 0;
+       bottom: 0;
+       background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.08) 50%, transparent 70%);
+       background-size: 200% 200%;
+       animation: shimmer 3s ease-in-out infinite;
+       pointer-events: none;
+       z-index: 1;
+     }
+     
+     .quote-box.dark-green-gradient .quote-content {
+       position: relative;
+       z-index: 2;
+     }
+     
+     .quote-box.dark-green-gradient blockquote {
+       color: white !important;
+       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+     }
+     
+     .quote-box.dark-green-gradient cite {
+       color: #bbf7d0 !important;
+       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+     }
+     
+     /* Glass shine effect on hover */
+     .quote-box.dark-green-gradient::after {
+       content: '';
+       position: absolute;
+       top: 0;
+       left: -100%;
+       width: 100%;
+       height: 100%;
+       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+       transition: left 0.8s ease;
+       pointer-events: none;
+       z-index: 1;
+     }
+     
+     .quote-box.dark-green-gradient:hover::after {
+       left: 100%;
+     }
+     
+     /* Override general hover effects for dark green version */
+     .quote-box.dark-green-gradient:hover {
+       transform: none !important;
+       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+       border-color: transparent !important;
+     }
+     
+     @keyframes shimmer {
+       0% { background-position: -200% -200%; }
+       100% { background-position: 200% 200%; }
+     }
+     
      .quote-box:hover {
        transform: translateY(-4px);
        box-shadow: 0 25px 60px rgba(22, 101, 52, 0.25);
@@ -1898,12 +2138,22 @@
        }
      }
      
+     @media (max-width: 768px) {
+       .reference-card {
+         flex-direction: column;
+         text-align: center;
+         gap: 20px;
+       }
+       
+       .reference-icon {
+         width: 60px;
+         height: 60px;
+       }
+     }
+     
      @media (min-width: 1200px) {
        .references-grid {
          grid-template-columns: repeat(2, 1fr);
-       }
-       .references-grid .reference-card.featured {
-         grid-column: 1 / -1;
        }
      }
      
@@ -1916,6 +2166,9 @@
        transition: all var(--anim-med);
        position: relative;
        overflow: hidden;
+       display: flex;
+       align-items: center;
+       gap: 24px;
      }
      
      .reference-card::before {
@@ -1934,30 +2187,30 @@
        border-color: var(--brand-green-300);
      }
      
-     .reference-card.featured {
-       background: linear-gradient(135deg, var(--brand-white), var(--brand-green-50));
-       border-color: var(--brand-green-200);
-       box-shadow: 0 20px 50px rgba(37,153,99,0.15);
-     }
-     
-     .reference-card.featured::before {
-       height: 6px;
-       background: linear-gradient(90deg, var(--brand-green-600), var(--brand-green-400), var(--brand-green-500));
-     }
+
      
      .reference-icon {
-       width: 48px;
-       height: 48px;
-       margin: 0 auto 20px;
+       width: 80px;
+       height: 80px;
+       margin: 0;
        display: flex;
        align-items: center;
        justify-content: center;
        color: var(--brand-green-600);
+       flex-shrink: 0;
      }
      
      .reference-icon svg {
        width: 100%;
        height: 100%;
+     }
+     
+     .reference-logo {
+       width: 100%;
+       height: 100%;
+       object-fit: contain;
+       border-radius: 8px;
+       opacity: 0.9;
      }
      
      .reference-badge {
@@ -1973,6 +2226,10 @@
        border: 1px solid var(--brand-green-300);
        box-shadow: 0 2px 8px rgba(37,153,99,0.15);
        margin-bottom: 16px;
+     }
+     
+     .reference-content {
+       flex: 1;
      }
      
      .reference-content h3 {

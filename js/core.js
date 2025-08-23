@@ -233,7 +233,7 @@
       'products.gateway.title': 'Gateway',
       'products.gateway.meta': 'Secure data transfer – reliable and scalable.',
 
-      'refs.title': 'References & Vision',
+      'refs.title': 'References',
       'refs.award.badge': 'Award',
       'refs.award.title': '2nd Place Founder\'s Prize',
       'refs.award.copy': 'Awarded for innovation and sustainability – audience approved.',
