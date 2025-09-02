@@ -38,6 +38,26 @@ class AudioToggle {
       this.isAudioOn = false;
       this.updateUI();
     });
+    
+    // Additional autoplay handling for mobile devices
+    this.heroVideo.addEventListener('loadstart', () => {
+      // Force autoplay on mobile devices
+      this.heroVideo.muted = true;
+      this.heroVideo.play().catch(error => {
+        console.log('Autoplay prevented:', error);
+        // If autoplay fails, try again after user interaction
+        document.addEventListener('touchstart', () => {
+          this.heroVideo.play().catch(() => {});
+        }, { once: true });
+      });
+    });
+    
+    // Handle autoplay policy changes
+    this.heroVideo.addEventListener('pause', () => {
+      if (this.heroVideo.muted) {
+        this.heroVideo.play().catch(() => {});
+      }
+    });
   }
   
   toggleAudio() {
