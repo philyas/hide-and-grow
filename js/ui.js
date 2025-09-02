@@ -94,7 +94,7 @@
   closeBtn && closeBtn.addEventListener('click', closeSide);
   sideOverlay && sideOverlay.addEventListener('click', closeSide);
 
-  const sectionIds = ['hero','products','viewer','irrigation-section','benefits','stories','references','contact'];
+  const sectionIds = ['hero','products','viewer','irrigation-section','benefits','vision','references','contact'];
   const sections = sectionIds
     .map(id => document.getElementById(id))
     .filter(Boolean);
