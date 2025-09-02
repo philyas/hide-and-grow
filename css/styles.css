@@ -602,8 +602,8 @@
     }
     
     .card:hover .badge {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(37, 153, 99, 0.15);
+      opacity: 0;
+      visibility: hidden;
     }
     
     .card h3 { 
@@ -622,7 +622,7 @@
     }
 
     .hover-info { position: absolute; inset: 0; display: grid; place-items: end; background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,0.55) 100%); color: var(--brand-white); opacity: 0; transition: opacity var(--anim-med); padding: 16px; }
-    .card:hover .hover-info { opacity: 1; }
+    .card:hover .hover-info { opacity: 0; }
 
     .hidden { display: none !important; }
 
