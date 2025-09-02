@@ -228,6 +228,10 @@
       infoModal.style.display = 'flex';
       setTimeout(() => {
         infoModal.classList.add('show');
+        // Focus the close button for accessibility
+        if (infoModalClose) {
+          infoModalClose.focus();
+        }
       }, 10);
     }
   }

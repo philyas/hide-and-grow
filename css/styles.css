@@ -2808,24 +2808,57 @@
      }
      
      .info-modal-close {
-       background: none;
-       border: none;
-       color: var(--brand-white);
-       font-size: 1.5rem;
-       cursor: pointer;
-       padding: 0;
-       width: 32px;
-       height: 32px;
-       display: flex;
-       align-items: center;
-       justify-content: center;
-       border-radius: 50%;
-       transition: background-color 0.2s ease;
-     }
-     
-     .info-modal-close:hover {
-       background: rgba(255, 255, 255, 0.2);
-     }
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(0, 0, 0, 0.2);
+      color: #333333;
+      cursor: pointer;
+      padding: 8px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      margin: 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-modal-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(0, 0, 0, 0.3);
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .info-modal-close:active {
+      transform: scale(0.98);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-modal-close:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(0, 0, 0, 0.4);
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-modal-close .close-icon {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1;
+      display: block;
+      color: #333333 !important;
+      opacity: 1;
+      transition: opacity 0.15s ease;
+      text-align: center;
+      text-shadow: none;
+    }
+
+    .info-modal-close:hover .close-icon {
+      opacity: 1;
+    }
      
      .info-modal-body {
        padding: 24px;
@@ -2882,13 +2915,28 @@
          margin: 20px;
        }
        
-       .info-modal-header {
-         padding: 16px 20px;
-       }
-       
-       .info-modal-header h3 {
-         font-size: 1.1rem;
-       }
+             .info-modal-header {
+        padding: 16px 20px;
+      }
+      
+      .info-modal-header h3 {
+        font-size: 1.1rem;
+      }
+      
+      .info-modal-close {
+        width: 44px;
+        height: 44px;
+        padding: 10px;
+        border: 2px solid rgba(0, 0, 0, 0.2);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .info-modal-close .close-icon {
+        font-size: 20px;
+        color: #333333 !important;
+        font-weight: 400;
+        text-shadow: none;
+      }
        
        .info-modal-body {
          padding: 20px;
@@ -2909,13 +2957,28 @@
          margin: 10px;
        }
        
-       .info-modal-header {
-         padding: 14px 16px;
-       }
-       
-       .info-modal-body {
-         padding: 16px;
-       }
+             .info-modal-header {
+        padding: 14px 16px;
+      }
+      
+      .info-modal-close {
+        width: 48px;
+        height: 48px;
+        padding: 12px;
+        border: 2px solid rgba(0, 0, 0, 0.2);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .info-modal-close .close-icon {
+        font-size: 22px;
+        color: #333333 !important;
+        font-weight: 400;
+        text-shadow: none;
+      }
+      
+      .info-modal-body {
+        padding: 16px;
+      }
      }
 
      /* Droplet styles - more transparent */
